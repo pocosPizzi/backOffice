@@ -7,18 +7,18 @@ const theme = createMuiTheme({
     },
   },
   palette: {
-    primary: { main: '#000' },
-    secondary: { main: '#929292' },
+    primary: { main: '#124999' },
+    secondary: { main: '#fff' },
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
   overrides: {
     MuiAppBar: {
       root: {
-        backgroundColor: '#929292 !important',
+        backgroundColor: '#124999 !important',
       },
       colorSecondary: {
-        color: '#000',
+        color: '#fff',
       },
     },
     RaTopToolbar: {

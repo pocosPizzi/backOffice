@@ -1,34 +1,20 @@
 package com.pocospizziback.api.dto.req;
 
-import java.time.LocalDate;
+import com.pocospizziback.api.model.User;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import com.pocospizziback.api.model.User;
-
-import lombok.Data;
 
 @Data
 public class ProfileReqDTO {
 
-	@NotBlank
-	private String email;
-	@NotBlank
-	private String name;
-	@NotBlank
-	private String city;
-	@NotBlank
-	private String phone;
-	@NotNull
-	private LocalDate birthdate;
+    @NotBlank
+    private String name;
 
-	public User toEntity(User entity) {
-		entity.setEmail(this.email);
-		entity.setName(this.name);
-		entity.setCity(this.city);
-		entity.setPhone(this.phone);
-		entity.setBirthdate(this.birthdate);
-		return entity;
-	}
+    public User toEntity(User entity) {
+
+        entity.setName(this.name);
+
+        return entity;
+    }
 }

@@ -25,13 +25,11 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 		this.initDatabase();
 	}
 
-//	@SuppressWarnings("unused")
 	private void initDatabase() {
 		if (!this.userRepository.existsById(1L)) {
 			HashSet<Role> roles = new HashSet<>(Arrays.asList(Role.ADMIN));
 			this.userRepository.save(
-					User.builder().username("admin").name("Administrador do Sistema").email("pocospizzi@gmail.com")
-							.encryptedPassword(this.passwordEncoder.encode("1234")).roles(roles).build());
+					User.builder().username("admin").name("Administrador do Sistema").password(this.passwordEncoder.encode("1234")).roles(roles).build());
 
 		}
 	}

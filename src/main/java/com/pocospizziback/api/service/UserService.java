@@ -1,108 +1,78 @@
 package com.pocospizziback.api.service;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import com.pocospizziback.api.bases.PageReq;
+import com.pocospizziback.api.bases.PageRes;
 import com.pocospizziback.api.config.i18n.Messages;
 import com.pocospizziback.api.config.i18n.ServiceException;
 import com.pocospizziback.api.config.security.AuthUtil;
+import com.pocospizziback.api.dto.req.UserReqDTO;
+import com.pocospizziback.api.dto.res.UserResDTO;
 import com.pocospizziback.api.model.User;
 import com.pocospizziback.api.repository.UserRepository;
 import com.pocospizziback.api.util.SearchUtils;
-
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
 public class UserService {
 
-	private final UserRepository repository;
-	private final PasswordService passwordService;
+    private final UserRepository repository;
+    private final PasswordService passwordService;
 
-	public Page<User> findAll(PageReq query) {
-		Specification<User> deleted = SearchUtils.specByDeleted(query.isDeleted());
-		Specification<User> filters = SearchUtils.specByFilter(query.getFilter(), "username", "id", "email", "name",
-				"city", "phone");
-		return this.repository.findAll(deleted.and(filters), query.toPageRequest());
-	}
+    public PageRes<UserResDTO> findAll(PageReq query) {
 
-	public List<User> getAllUsers() {
-		return repository.findAll();
-	}
+    	Specification<User> deleted = SearchUtils.specByDeleted(query.isDeleted());
+        Specification<User> filters = SearchUtils.specByFilter(query.getFilter(), "username", "id", "email", "name");
+		Page<User> page = this.repository.findAll(deleted.and(filters), query.toPageRequest());
 
-	public User findById(Long id) {
-		return this.repository.findById(id).orElseThrow(() -> new ServiceException(Messages.record_not_found));
-	}
-
-	public User save(User pojo) {
-
-		if (LocalDate.now().isBefore(pojo.getBirthdate()))
-			throw new ServiceException(Messages.user_birthdate_invalid);
-		if (StringUtils.hasText(pojo.getNewPassword())) {
-			pojo.setEncryptedPassword(this.passwordService.encode(pojo.getNewPassword()));
-		}
-		if (pojo.getId() == null) {
-			pojo.setEncryptedPassword(this.passwordService.encode(pojo.getEncryptedPassword()));
-		}
-
-		return this.findById(this.repository.save(pojo).getId());
-	}
-
-	public User saveProfile(User pojo) {
-
-		if (LocalDate.now().isBefore(pojo.getBirthdate()))
-			throw new ServiceException(Messages.user_birthdate_invalid);
-		Optional<User> userOptional = this.repository.findByUsername(pojo.getUsername());
-		if (userOptional.isPresent() && userOptional.get().getId() != pojo.getId()) {
-			throw new ServiceException("Username já esta em uso.");
-
-		} else {
-			return this.findById(this.repository.save(pojo).getId());
-		}
-
-	}
-
-	public void logicalExclusion(Long id) {
-		if (!this.repository.findByIdAndNotDeleted(id).isPresent())
-			throw new ServiceException(Messages.record_not_found);
-		this.repository.softDelete(id);
-	}
-
-	public List<User> findAll() {
-		return this.repository.findAll();
-	}
-
-	public List<User> findAllDeleted() {
-		return this.repository.findAllDeleted();
-	}
-
-	public void restoreDeleted(Long id) {
-		if (!this.repository.findDeletedById(id).isPresent())
-			throw new ServiceException(Messages.record_not_found_at_recycle_bin);
-		this.repository.restoreDeleted(id);
-	}
-
-	public void permanentDestroy(Long id) {
-		if (!this.repository.findDeletedById(id).isPresent())
-			throw new ServiceException(Messages.record_not_found_at_recycle_bin);
-		this.repository.deleteById(id);
-	}
-
-	public List<User> findByIds(Long[] ids) {
-		return this.repository.findAllById(Arrays.asList(ids));
-	}
+        return new PageRes<>(page.getContent().stream().map(UserResDTO::of).collect(Collectors.toList()),
+                page.getTotalElements(), page.getTotalPages());
+    }
 
 	public User findAuthenticatedUser() {
-		return this.repository.findById(AuthUtil.getUserId())
-				.orElseThrow(() -> new ServiceException("Usuário deve estar autenticado."));
 
+		return this.repository.findById(AuthUtil.getUserId())
+				.orElseThrow(() -> new ServiceException(Messages.user_not_authenticates));
 	}
+
+	public UserResDTO save(UserReqDTO dto) {
+
+		User user = dto.toEntity(new User());
+
+		user.setPassword(this.passwordService.encode(dto.getPassword()));
+
+		return UserResDTO.of(this.repository.save(user));
+	}
+
+	public UserResDTO findByIdDto(Long id) {
+		return UserResDTO.of(this.findByIdEntity(id));
+	}
+
+    public User findByIdEntity(Long id) {
+        return this.repository.findById(id).orElseThrow(() -> new ServiceException(Messages.use_not_found));
+    }
+
+    public void logicalExclusion(Long id) {
+
+        if (this.repository.findByIdAndNotDeleted(id).isEmpty())
+            throw new ServiceException(Messages.use_not_found);
+
+        this.repository.softDelete(id);
+    }
+
+	public UserResDTO update(Long id, UserReqDTO dto) {
+
+    	User user = dto.toEntity(this.findByIdEntity(id));
+
+    	if(dto.getPassword() != null)
+			user.setPassword(this.passwordService.encode(dto.getPassword()));
+
+    	return UserResDTO.of(this.repository.save(user));
+	}
+
 }

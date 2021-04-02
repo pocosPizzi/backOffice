@@ -10,7 +10,7 @@ import URLs from './URLs';
 export default (type, params) => {
   if (type === AUTH_LOGIN) {
     const { username, password } = params;
-    const basicAuth = `Basic ${btoa('cesargymapp:cesargymapp-secret')}`;
+    const basicAuth = `Basic ${btoa('backofficeapp:backofficeapp-secret')}`;
     const request = new Request(
       `${URLs.baseURL}/oauth/token?username=${username}&password=${password}&grant_type=password`,
       {
@@ -31,7 +31,7 @@ export default (type, params) => {
       .then(json => {
         localStorage.setItem('token', json.access_token);
         return fetch(
-          new Request(`${URLs.baseURL}/profile/me`, {
+          new Request(`${URLs.baseURL}/profiles/me`, {
             method: 'GET',
             headers: {
               Authorization: `Bearer ${json.access_token}`,
@@ -49,7 +49,7 @@ export default (type, params) => {
     const token = localStorage.getItem('token');
     if (token) {
       return fetch(
-        new Request(`${URLs.baseURL}/profile/logout`, {
+        new Request(`${URLs.baseURL}/profiles/logout`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${token}`,

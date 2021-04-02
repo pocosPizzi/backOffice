@@ -1,11 +1,14 @@
 package com.pocospizziback.api.config.i18n;
 
 public enum Messages {
-	
-	record_not_found, 
-	record_not_found_at_recycle_bin,
-	
-	agenda_config_bonded_users, 
-	user_birthdate_invalid
-	;
+
+	user_not_authenticates,
+	use_not_found,
+	category_name_empty,
+	category_not_found,
+	password_with_space,
+	password_is_empty,
+	product_name_empty,
+	product_not_found
+
 }

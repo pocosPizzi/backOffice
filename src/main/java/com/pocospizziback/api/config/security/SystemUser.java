@@ -20,11 +20,10 @@ public class SystemUser extends User {
 	private String email;
 
 	public SystemUser(Long id, String username, String password, boolean enabled,
-			Collection<? extends GrantedAuthority> authorities, String name, String email) {
+			Collection<? extends GrantedAuthority> authorities, String name) {
 		super(username, password, enabled, true, true, true, authorities);
 		this.id = id;
 		this.name = name;
-		this.email = email;
 	}
 
 }

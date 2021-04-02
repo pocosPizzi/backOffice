@@ -36,11 +36,11 @@ import lombok.AllArgsConstructor;
 @Configuration
 public class SecurityConfig {
 
-	private static final String CLIENT_ID = "cesargymapp";
-	private static final String CLIENT_SECRET = "cesargymapp-secret";
+	private static final String CLIENT_ID = "backofficeapp";
+	private static final String CLIENT_SECRET = "backofficeapp-secret";
 	private static final int TOKEN_VALIDITY = 0;
 	private static final String SCOPE = "all";
-	private static final String RESOURCE_ID = "cesargym-service";
+	private static final String RESOURCE_ID = "backofficeapp-service";
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {

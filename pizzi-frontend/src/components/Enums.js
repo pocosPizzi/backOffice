@@ -8,44 +8,25 @@ import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
 const enums = {
-  roles: ['ADMIN'],
-  maritalStatus: [
-    'SOLTEIRO',
-    'CASADO',
-    'DICORCIADO',
-    'VIUVO'
+  roles: [
+    'ADMIN',
   ],
 
-  schooling: [
-    'FUNDAMENTAL_INCOMPLETO',
-    'FUNDAMENTAL_COMPLETO',
-    'MEDIO_INCOMPLETO',
-    'MEDIO_COMPLETO',
-    'SUPERIOR_INCOMPLETO',
-    'SUPERIOR_COMPLETO'
-  ],
-
-  processStatus: [
-    'Ánalise',
-    'Concedido',
-    'Indeferido',
-    'Observação'
+  typeTotalStock: [
+    'UNITY',
+    'METERS'
   ]
 };
 const enumsStyles = {
-  schedulingStatus: [
-    { backgroundColor: 'rgb(244, 67, 54)', color: '#fff' },
-    { backgroundColor: 'rgb(76, 175, 80)', color: '#fff' },
+  roles: [
+    { backgroundColor: '#C0C0C0', color: '#000' },
   ],
-  dayOfWeek: [
-    { backgroundColor: '#fe504e', color: '#fff' },
-    { backgroundColor: '#fecd66' },
-    { backgroundColor: '#ffff69' },
-    { backgroundColor: '#98ff69' },
-    { backgroundColor: '#339a64', color: '#fff' },
-    { backgroundColor: '#3366ff', color: '#fff' },
-    { backgroundColor: '#ce00cc', color: '#fff' },
+
+  typeTotalStock: [
+    { backgroundColor: '#C0C0C0', color: '#000' },
+    { backgroundColor: '#C0C0C0', color: '#000' }
   ],
+
 };
 
 const choices = source => {

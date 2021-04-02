@@ -1,12 +1,13 @@
 import React from 'react';
 import { 
-  Box,
+  Box, 
   Grid,
   makeStyles,
   Typography,
-  Toolbar
+  Toolbar 
 } from '@material-ui/core';
-import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined';import {
+import CategoryOutlinedIcon from '@material-ui/icons/CategoryOutlined';
+import {
   Create,
   Datagrid,
   DeleteButton,
@@ -21,7 +22,6 @@ import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined'
   TextInput,
   TopToolbar,
 } from 'react-admin';
-import { EnumCheckboxInput, EnumField } from '../components/Enums';
 import { ListFilterWithDeleteds } from '../components/ListFilter';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 
@@ -44,10 +44,10 @@ const useStyles = makeStyles(theme => ({
 
 );
 
-export const UserList = props => {
+export const CategoryList = props => {
 
   const classes = useStyles();
-
+  
   return (
     <List
       filters={<ListFilterWithDeleteds />}
@@ -57,8 +57,6 @@ export const UserList = props => {
     >
       <Datagrid classes={{ headerCell: classes.row }}>
         <TextField source="name" />
-        <TextField source="username" />
-        <EnumField source="roles" />
         <EditButton
           variant="outlined"
           color="primary"
@@ -67,21 +65,16 @@ export const UserList = props => {
       </Datagrid>
     </List>
   )
-  
-        
 };
 
-const UserForm = props => {
-
-  console.log(props)
-
+const CategoryForm = props => {
   return (
     <FormWithRedirect
       {...props}
       redirect="list"
       render={formProps => (
         <form onSubmit={formProps.submit}>
-          <Typography 
+           <Typography 
             variant="h6" 
             align="left" 
             gutterBottom={true}
@@ -92,44 +85,32 @@ const UserForm = props => {
             </Box>
 
           </Typography>
-          <Grid container
-                spacing={4}
-                alignItems="center"
-                justify="center">
+          <Grid container>
             <Grid item xs={3}>
               <TextInput
-                resource="users"
-                source="username"
+                resource="categories"
+                source="name"
                 validate={required()}
               />
-            </Grid>
-            <Grid item xs={3}>
-              <TextInput resource="users" source="password" type="password" />
-            </Grid>
-            <Grid item xs={3}>
-              <TextInput resource="users" source="name" validate={required()} />
-            </Grid>
-            <Grid item xs={2}>
-              <EnumCheckboxInput resource="users" source="roles" />
             </Grid>
           </Grid>
           <Toolbar disableGutters>
             <Box display="flex" justifyContent="space-between" width="100%">
-              <div style={{ padding: '16px', margin: '5px' }}>
-                <SaveButton
-                  saving={formProps.saving}
-                  handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
-                />
-                {props.redirect === 'list' && 
-                  <DeleteButton
-                    style={{ marginLeft: '30px' }}
-                    record={formProps.record}
-                    resource={formProps.resource}
-                    basePath={formProps.basePath}
-                    undoable={false}
+                <div style={{ padding: '16px', margin: '5px' }}>
+                  <SaveButton
+                      saving={formProps.saving}
+                      handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
                   />
-                }
-              </div>
+                  {props.redirect === 'list' && 
+                    <DeleteButton
+                      style={{ marginLeft: '30px' }}
+                      record={formProps.record}
+                      resource={formProps.resource}
+                      basePath={formProps.basePath}
+                      undoable={false}
+                    />
+                  }
+                </div>
             </Box>
           </Toolbar>
         </form>
@@ -138,17 +119,17 @@ const UserForm = props => {
   );
 };
 
-export const UserEdit = props => {
+export const CategoryEdit = props => {
   return (
     <Edit undoable={false} actions={<FormActions />} {...props}>
-      <UserForm {...props} />
+      <CategoryForm {...props} />
     </Edit>
   );
 };
 
-export const UserCreate = props => (
+export const CategoryCreate = props => (
   <Create undoable="false" actions={<FormActions />} {...props}>
-    <UserForm {...props} />
+    <CategoryForm {...props} />
   </Create>
 );
 
@@ -159,8 +140,8 @@ const FormActions = ({ basePath }) => (
 );
 
 export default {
-  create: UserCreate,
-  edit: UserEdit,
-  list: UserList,
-  icon: AssignmentIndOutlinedIcon,
+  create: CategoryCreate,
+  edit: CategoryEdit,
+  list: CategoryList,
+  icon: CategoryOutlinedIcon,
 };

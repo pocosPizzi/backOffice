@@ -12,6 +12,6 @@ const httpClient = (url, options = {}) => {
   return fetchUtils.fetchJson(url, options);
 };
 
-const springProvider = springServerProvider(`${URLs.baseURL}/api`, httpClient);
+const springProvider = springServerProvider(`${URLs.baseURL}`, httpClient);
 
 export default springProvider;

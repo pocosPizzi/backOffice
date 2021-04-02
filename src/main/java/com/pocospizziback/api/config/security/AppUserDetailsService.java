@@ -31,7 +31,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		Collection<GrantedAuthority> authorities = CollectionUtils.isEmpty(user.getRoles()) ? Collections.emptyList()
 				: user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.toString()))
 						.collect(Collectors.toList());
-		return new SystemUser(user.getId(), user.getUsername(), user.getEncryptedPassword(), !user.isDeleted(),
-				authorities, user.getName(), user.getEmail());
+		return new SystemUser(user.getId(), user.getUsername(), user.getPassword(), !user.isDeleted(),
+				authorities, user.getName());
 	}
 }

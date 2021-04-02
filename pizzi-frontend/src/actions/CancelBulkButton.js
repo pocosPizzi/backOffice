@@ -43,7 +43,7 @@ const CancelBulkButton = ({ selectedIds, resource }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    title: 'Sublime Prev Salário Maternidade',
+    title: 'POços Pizzi',
     content: 'Seu treino foi cancelado',
     sendNotify: false,
   });

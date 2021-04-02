@@ -8,7 +8,7 @@ ptbrMessages.messages = {
 
 ptbrMessages.page = {
   empty: 'Nenhum registro encontrado',
-  invite: 'Deseja criar um novo?',
+  invite: 'Deseja criar um novo(a)?',
 };
 
 ptbrMessages.enums = {
@@ -16,27 +16,9 @@ ptbrMessages.enums = {
     ADMIN: 'Admin',
   },
 
-  maritalStatus: {
-    SOLTEIRO: 'Solteira',
-    CASADO: 'Casada',
-    DICORCIADO: 'Divorciada',
-    VIUVO: 'Viúva'
-  },
-
-  schooling: {
-    FUNDAMENTAL_INCOMPLETO: 'Fundamental Icompleto',
-    FUNDAMENTAL_COMPLETO: 'Fundamental Completo',
-    MEDIO_INCOMPLETO: 'Médio Incompleto',
-    MEDIO_COMPLETO: 'Médio Completo',
-    SUPERIOR_INCOMPLETO: 'Superior Incompleto',
-    SUPERIOR_COMPLETO: 'Superior Completo'
-  },
-
-  processStatus: {
-    ANALISE: 'Ánalise',
-    CONCEDIDO: 'Concedido',
-    INDEFERIDO: 'Indeferido',
-    OBSERVACAO: 'Observação'
+  typeTotalStock: {
+    UNITY: 'Un',
+    METERS: 'Mt'
   }
 };
 
@@ -82,42 +64,40 @@ ptbrMessages.resources = {
       updatedBy: 'Atualizado por',
       username: 'Login',
       name: 'Nome Completo',
-      password: 'Nova Senha',
-      email: 'E-mail',
+      password: 'Senha',
       roles: 'Permissões',
-      phone: 'Telefone',
-      city: 'Cidade',
-      birthdate: 'Data de Nascimento',
-      schedulingsEndDate: 'Data Final para Agendamentos',
-      listTypeExercise: 'Tipos de Treino',
-      typeExercise: 'Tipos de Treino',
-      encryptedPassword: 'Senha',
-      comments: 'Observações',
     },
   },
 
-  mothers: {
+  categories: {
     empty: ptbrMessages.page.empty,
     invite: ptbrMessages.page.invite,
-    name: 'Mãe |||| Mães',
+    name: 'Categoria de Produtos |||| Categorias de Produtos',
     fields: {
       updatedAt: 'Atualizado em',
       updatedBy: 'Atualizado por',
-      createdAt: 'Criado em',
-      createdBy: 'Criado por',
-      name: 'Nome Completo',
-      email: 'E-mail',
-      phone: 'Telefone',
-      birthdate: 'Data de Nascimento',
-      cpf: 'CPF',
-      rg: 'RG',
-      pis: 'Número do pis',
-      maritalStatus: 'Estado Cívil',
-      schooling: 'Escolaridade',
-      fatherName: 'Nome do pai',
-      motherName: 'Nome da mãe'
+      name: 'Categoria',
     },
   },
+
+  products: {
+    empty: ptbrMessages.page.empty,
+    invite: ptbrMessages.page.invite,
+    name: 'Produto |||| Produtos',
+    fields: {
+      updatedAt: 'Atualizado em',
+      updatedBy: 'Atualizado por',
+      name: 'Nome Produto',
+      barCode: 'Código de Barras',
+      categoryName: 'Categoria',
+      purchasePrice: 'Valor de Compra',
+      saleValue: 'Valor de Venda',
+      totalStock: 'Total em estoque',
+      typeTotalStock: 'Tipo de medida',
+      categoryId: 'Categoria'
+    },
+  }
+
 };
 
 export default ptbrMessages;
