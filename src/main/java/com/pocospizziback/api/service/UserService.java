@@ -26,32 +26,32 @@ public class UserService {
 
     public PageRes<UserResDTO> findAll(PageReq query) {
 
-    	Specification<User> deleted = SearchUtils.specByDeleted(query.isDeleted());
+        Specification<User> deleted = SearchUtils.specByDeleted(query.isDeleted());
         Specification<User> filters = SearchUtils.specByFilter(query.getFilter(), "username", "id", "email", "name");
-		Page<User> page = this.repository.findAll(deleted.and(filters), query.toPageRequest());
+        Page<User> page = this.repository.findAll(deleted.and(filters), query.toPageRequest());
 
         return new PageRes<>(page.getContent().stream().map(UserResDTO::of).collect(Collectors.toList()),
                 page.getTotalElements(), page.getTotalPages());
     }
 
-	public User findAuthenticatedUser() {
+    public User findAuthenticatedUser() {
 
-		return this.repository.findById(AuthUtil.getUserId())
-				.orElseThrow(() -> new ServiceException(Messages.user_not_authenticates));
-	}
+        return this.repository.findById(AuthUtil.getUserId())
+                .orElseThrow(() -> new ServiceException(Messages.user_not_authenticates));
+    }
 
-	public UserResDTO save(UserReqDTO dto) {
+    public UserResDTO save(UserReqDTO dto) {
 
-		User user = dto.toEntity(new User());
+        User user = dto.toEntity(new User());
 
-		user.setPassword(this.passwordService.encode(dto.getPassword()));
+        user.setPassword(this.passwordService.encode(dto.getPassword()));
 
-		return UserResDTO.of(this.repository.save(user));
-	}
+        return UserResDTO.of(this.repository.save(user));
+    }
 
-	public UserResDTO findByIdDto(Long id) {
-		return UserResDTO.of(this.findByIdEntity(id));
-	}
+    public UserResDTO findByIdDto(Long id) {
+        return UserResDTO.of(this.findByIdEntity(id));
+    }
 
     public User findByIdEntity(Long id) {
         return this.repository.findById(id).orElseThrow(() -> new ServiceException(Messages.use_not_found));
@@ -65,14 +65,14 @@ public class UserService {
         this.repository.softDelete(id);
     }
 
-	public UserResDTO update(Long id, UserReqDTO dto) {
+    public UserResDTO update(Long id, UserReqDTO dto) {
 
-    	User user = dto.toEntity(this.findByIdEntity(id));
+        User user = dto.toEntity(this.findByIdEntity(id));
 
-    	if(dto.getPassword() != null)
-			user.setPassword(this.passwordService.encode(dto.getPassword()));
+        if (dto.getPassword() != null)
+            user.setPassword(this.passwordService.encode(dto.getPassword()));
 
-    	return UserResDTO.of(this.repository.save(user));
-	}
+        return UserResDTO.of(this.repository.save(user));
+    }
 
 }

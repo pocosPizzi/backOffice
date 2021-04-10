@@ -15,7 +15,7 @@ public class CategoryChoiceResDTO {
     private Long id;
     private String name;
 
-    public static CategoryChoiceResDTO of(Category entity){
+    public static CategoryChoiceResDTO of(Category entity) {
         return CategoryChoiceResDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())

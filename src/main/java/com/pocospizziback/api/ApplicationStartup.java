@@ -1,18 +1,16 @@
 package com.pocospizziback.api;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
+import com.pocospizziback.api.domain.Role;
+import com.pocospizziback.api.model.User;
+import com.pocospizziback.api.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.pocospizziback.api.domain.Role;
-import com.pocospizziback.api.model.User;
-import com.pocospizziback.api.repository.UserRepository;
-
-import lombok.AllArgsConstructor;
+import java.util.Arrays;
+import java.util.HashSet;
 
 @Component
 @AllArgsConstructor

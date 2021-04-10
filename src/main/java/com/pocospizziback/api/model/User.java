@@ -37,5 +37,4 @@ public class User extends BaseEntity implements Serializable {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_id")
     private Set<Role> roles;
-
 }

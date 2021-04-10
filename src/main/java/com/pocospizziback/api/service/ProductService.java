@@ -28,14 +28,14 @@ public class ProductService {
     private CategoryService categoryService;
 
     @Transactional
-    public ProductResDTO save(ProductReqDTO dto){
+    public ProductResDTO save(ProductReqDTO dto) {
 
         Category category = categoryService.findByIdEntity(dto.getCategoryId());
 
         Product product = dto.toEntity(new Product());
         product.setCategory(category);
 
-        if(product.getName().isEmpty())
+        if (product.getName().isEmpty())
             throw new ServiceException(Messages.product_name_empty);
 
         return ProductResDTO.of(this.repository.save(product));
@@ -45,7 +45,7 @@ public class ProductService {
 
         Product product = dto.toEntity(this.findByIdEntity(id));
 
-        if(product.getName().isEmpty())
+        if (product.getName().isEmpty())
             throw new ServiceException(Messages.product_name_empty);
 
         return ProductResDTO.of(this.repository.save(product));
@@ -54,7 +54,7 @@ public class ProductService {
     public PageRes<ProductResDTO> findAll(PageReq query) {
 
         Specification<Product> deleted = SearchUtils.specByDeleted(query.isDeleted());
-        Specification<Product> filters = SearchUtils.specByFilter(query.getFilter(),  "name", "id");
+        Specification<Product> filters = SearchUtils.specByFilter(query.getFilter(), "name", "id");
         Page<Product> page = this.repository.findAll(deleted.and(filters), query.toPageRequest());
 
         return new PageRes<>(page.getContent().stream().map(ProductResDTO::of).collect(Collectors.toList()),

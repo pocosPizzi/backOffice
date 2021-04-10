@@ -9,6 +9,8 @@ public enum Messages {
 	password_with_space,
 	password_is_empty,
 	product_name_empty,
-	product_not_found
+	product_not_found,
+	product_is_null,
+	service_produto_not_found
 
 }
