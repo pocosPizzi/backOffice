@@ -1,21 +1,21 @@
 package com.pocospizziback.api.model;
 
 import com.pocospizziback.api.bases.BaseEntity;
-import com.pocospizziback.api.domain.TypeService;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "services_provided")
+@Table(name = "perforations")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class JobProvided extends BaseEntity implements Serializable {
+public class Perforation extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,17 @@ public class JobProvided extends BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String client;
+    private String nameClient;
+
+    private String cpf;
+
+    private String rg;
+
+    private LocalDate birthday;
+
+    private String phone;
+
+    private String email;
 
     private String numberHouse;
 
@@ -37,8 +47,6 @@ public class JobProvided extends BaseEntity implements Serializable {
 
     private String description;
 
-    private TypeService typeService;
-
     private Integer perforatedMeters;
 
     private String observation;
@@ -46,5 +54,5 @@ public class JobProvided extends BaseEntity implements Serializable {
     private Double valueService;
 
     @ManyToMany
-    private List<JobProduct> jobProducts;
+    private List<ProductUsed> productsUsed;
 }

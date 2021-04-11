@@ -7,13 +7,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "service_products")
+@Table(name = "products_used")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class JobProduct extends BaseEntity implements Serializable {
+public class ProductUsed extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

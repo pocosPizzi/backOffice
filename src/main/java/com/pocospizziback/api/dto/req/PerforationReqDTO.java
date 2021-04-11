@@ -1,21 +1,32 @@
 package com.pocospizziback.api.dto.req;
 
 import com.pocospizziback.api.domain.TypeService;
-import com.pocospizziback.api.model.JobProvided;
+import com.pocospizziback.api.model.Perforation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobProvidedReqDTO {
+public class PerforationReqDTO {
 
-    private String client;
+    private String nameClient;
+
+    private String cpf;
+
+    private String rg;
+
+    private LocalDate birthday;
+
+    private String phone;
+
+    private String email;
 
     private String numberHouse;
 
@@ -29,26 +40,28 @@ public class JobProvidedReqDTO {
 
     private String description;
 
-    private TypeService typeService;
-
     private Integer perforatedMeters;
 
     private String observation;
 
     private Double valueService;
 
-    private List<ProductTempReqDTO> productTempList;
+    private List<ProductUsedReqDTO> productTempList;
 
-    public JobProvided toEntity(JobProvided entity) {
+    public Perforation toEntity(Perforation entity) {
 
-        entity.setClient(this.client);
+        entity.setNameClient(this.nameClient);
+        entity.setCpf(this.cpf);
+        entity.setRg(this.rg);
+        entity.setBirthday(this.birthday);
+        entity.setPhone(this.phone);
+        entity.setEmail(this.email);
         entity.setNumberHouse(this.numberHouse);
         entity.setStreet(this.street);
         entity.setDistrict(this.district);
         entity.setCity(this.city);
         entity.setUf(this.uf);
         entity.setDescription(this.description);
-        entity.setTypeService(this.typeService);
         entity.setPerforatedMeters(this.perforatedMeters);
         entity.setObservation(this.observation);
         entity.setValueService(this.valueService);

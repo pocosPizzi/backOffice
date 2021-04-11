@@ -11,6 +11,7 @@ public enum Messages {
 	product_name_empty,
 	product_not_found,
 	product_is_null,
-	service_produto_not_found
+	service_produto_not_found,
+	job_provided_not_found,
 
 }

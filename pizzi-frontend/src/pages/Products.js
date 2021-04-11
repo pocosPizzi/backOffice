@@ -109,9 +109,9 @@ const ProductForm = props => {
           <Typography 
             variant="h6" 
             align="left" 
-            style={{backgroundColor: '#124999', color: '#fff', marginLeft: '5px'}}
-          >
-            <Box fontWeight="fontWeightBold" textAlign="left" m={1}>
+            style={{backgroundColor: '#124999', color: '#fff', padding: '5px'}}
+            >
+              <Box fontWeight="fontWeightBold" textAlign="left" m={0}>
               Produto
             </Box>
 

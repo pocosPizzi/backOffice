@@ -26,6 +26,13 @@ ptbrMessages.forms = {
   summary: 'Cadastro',
 };
 
+ptbrMessages.ra.page.create = 'Novo(a) %{name}';
+ptbrMessages.ra.page.edit = '%{name}';
+ptbrMessages.ra.page.show = '%{name}';
+ptbrMessages.ra.page.list = 'Lista de %{name}'
+
+ptbrMessages.ra.action.create = 'Novo(a)';
+
 ptbrMessages.mbrnTable = {
   pagination: {
     labelDisplayedRows: '{from} - {to} de {count}',
@@ -96,8 +103,32 @@ ptbrMessages.resources = {
       typeTotalStock: 'Tipo de medida',
       categoryId: 'Categoria'
     },
-  }
+  },
 
+  'perforations' : {
+    empty: ptbrMessages.page.empty,
+    invite: ptbrMessages.page.invite,
+    name: 'Perfuração |||| Perfurações',
+    fields: {
+      updatedAt: 'Atualizado em',
+      updatedBy: 'Atualizado por',
+      nameClient: 'Nome do Cliente',
+      cpf: 'CPF',
+      rg: 'RG',
+      birthday: 'Aniversário',
+      phone: 'Telefone',
+      email: 'email',
+      uf: 'Estado',
+      city: 'Cidade',
+      district: 'Bairro',
+      street: 'Rua',
+      numberHouse: 'Número',
+      description: 'Descrição',
+      perforatedMeters: 'Metros Perfurados',
+      observation: 'Observação',
+      valueService: 'Valor da Perfuração'
+    },
+  }
 };
 
 export default ptbrMessages;

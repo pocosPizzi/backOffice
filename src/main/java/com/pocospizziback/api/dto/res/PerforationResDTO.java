@@ -1,20 +1,22 @@
 package com.pocospizziback.api.dto.res;
 
 import com.pocospizziback.api.domain.TypeService;
-import com.pocospizziback.api.model.JobProvided;
+import com.pocospizziback.api.model.Perforation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobProvidedResDTO {
+public class PerforationResDTO {
 
     private Long id;
 
@@ -28,7 +30,17 @@ public class JobProvidedResDTO {
 
     private LocalDateTime updatedAt;
 
-    private String client;
+    private String nameClient;
+
+    private String cpf;
+
+    private String rg;
+
+    private LocalDate birthday;
+
+    private String phone;
+
+    private String email;
 
     private String numberHouse;
 
@@ -50,9 +62,9 @@ public class JobProvidedResDTO {
 
     private Double valueService;
 
-    private List<ProductTempResDTO> productTempList;
+    private List<ProductUsedResDTO> productTempList;
 
-    public JobProvidedResDTO(JobProvided entity) {
+    public PerforationResDTO(Perforation entity) {
 
         this.id = entity.getId();
         this.deleted = entity.isDeleted();
@@ -60,21 +72,26 @@ public class JobProvidedResDTO {
         this.updatedBy = entity.getUpdatedBy();
         this.createdAt = entity.getCreatedAt();
         this.updatedAt = entity.getUpdatedAt();
-        this.client = entity.getClient();
+        this.nameClient = entity.getNameClient();
+        this.cpf = entity.getCpf();
+        this.rg = entity.getRg();
+        this.birthday = entity.getBirthday();
+        this.phone = entity.getPhone();
+        this.email = entity.getEmail();
         this.numberHouse = entity.getNumberHouse();
         this.street = entity.getStreet();
         this.district = entity.getDistrict();
         this.city = entity.getCity();
         this.uf = entity.getUf();
         this.description = entity.getDescription();
-        this.typeService = entity.getTypeService();
         this.perforatedMeters = entity.getPerforatedMeters();
         this.observation = entity.getObservation();
         this.valueService = entity.getValueService();
+        this.productTempList = entity.getProductsUsed() != null ? entity.getProductsUsed().stream().map(ProductUsedResDTO::of).collect(Collectors.toList()) : null;
     }
 
-    public static JobProvidedResDTO of(JobProvided entity) {
+    public static PerforationResDTO of(Perforation entity) {
 
-        return entity == null ? null : new JobProvidedResDTO(entity);
+        return entity == null ? null : new PerforationResDTO(entity);
     }
 }

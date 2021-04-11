@@ -13,9 +13,20 @@ const theme = createMuiTheme({
     tonalOffset: 0.2,
   },
   overrides: {
+
+    MuiButtonBase:{
+      root:{
+        justifyContent: 'end !important',
+        padding: '5px !important',
+        marginLeft: '5px !important'
+
+      },
+    },
+
     MuiAppBar: {
       root: {
         backgroundColor: '#124999 !important',
+        color: '#fff !important'
       },
       colorSecondary: {
         color: '#fff',
@@ -24,6 +35,8 @@ const theme = createMuiTheme({
     RaTopToolbar: {
       root: {
         paddingTop: 8,
+        paddingRight: '24px !important',
+        minHeight: '48px !importtabt'
       },
     },
     MuiFormControl: {

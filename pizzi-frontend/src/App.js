@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound';
 import Users from './pages/Users';
 import Category from './pages/Category';
 import Products from './pages/Products';
+import Perforation from './pages/Perforation';
 import authProvider from './providers/authProvider';
 import dataProvider from './providers/dataProvider';
 import './styles/App.css';
@@ -15,9 +16,10 @@ import theme from './themes/theme';
 const fetchResources = permissions => {
   let arr = [];
   if (permissions.includes(Roles.ADMIN)) {
-    arr.push(<Resource name="users" {...Users}/>);
-    arr.push(<Resource name="products" {...Products}/>);
-    arr.push(<Resource name="categories" {...Category}/>);
+    arr.push(<Resource name="users" {...Users} />);
+    arr.push(<Resource name="products" {...Products} />);
+    arr.push(<Resource name="categories" {...Category} />);
+    arr.push(<Resource name='perforations' {...Perforation} />)
   }
   return arr;
 };
