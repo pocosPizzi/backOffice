@@ -10,7 +10,6 @@ import OpacityOutlinedIcon from '@material-ui/icons/OpacityOutlined';
 import {
     AutocompleteInput,
     ArrayInput,
-    BooleanInput,
     Create,
     Datagrid,
     DateInput,
@@ -81,7 +80,7 @@ function getSteps() {
     return ['Dados do Cliente', 'Dados de Endereço', 'Dados do Poço', 'Materiais usado', 'Valores'];
 }
   
-function getStepContent(step, choices) {
+function getStepContent(step, choices, disabled) {
 
     switch (step) {
         case 0:
@@ -296,7 +295,7 @@ export const PerforationList = props => {
         <EditButton
           variant="outlined"
           color="primary"
-          >
+        >
         </EditButton>
       </Datagrid>
     </List>
@@ -334,81 +333,81 @@ const PerforationForm = props => {
         getChoice();
     }, []);
 
-
-  return (
-    <FormWithRedirect
-      {...props}
-      redirect="list"
-      render={formProps => (
-        <form onSubmit={formProps.submit}>
-            <Typography 
-                variant="h6" 
-                align="left" 
-                gutterBottom={true}
-                style={{backgroundColor: '#124999', color: '#fff' }}
-          >
-            <Box fontWeight="fontWeightBold" textAlign="left" m={1}>
-                Perfuração
-            </Box>
-            <div className={classes.root}>
-                <Stepper activeStep={activeStep} orientation="vertical">
-                    {steps.map((label, index) => (
-                    <Step key={label} >
-                        <StepLabel style={{completed: classes.row}}>{label}</StepLabel>
-                        <StepContent >
-                            <Typography >{getStepContent(index, choice)}</Typography>
-                            <div>
-                                <div>
-                                    <Button
-                                        disabled={activeStep === 0}
-                                        onClick={handleBack}
-                                    >
-                                        Voltar
-                                    </Button>
-                                    <Button
-                                        style={{color: '#124999' }}
-                                        onClick={handleNext}
-                                    >
-                                        {activeStep === steps.length - 1 ? 'Finalizar' : 'Próxima'}
-                                    </Button>
-                                </div>
-                            </div>
-                        </StepContent>
-                    </Step>
-                    ))}
-                </Stepper>
-                {activeStep === steps.length && (
-                    <Paper square elevation={0}>
-                    <Typography style={{marginLeft: '10px' }}>Todas as etapas estão completas</Typography>
-                    <Button onClick={handleReset} style={{color: '#f44336' }}>
-                        Resetar
-                    </Button>
-                    </Paper>
-                )}
-            </div>
-            </Typography>
-            <Toolbar disableGutters>
-                <Box display="flex" justifyContent="space-between" width="100%">
-                    <div style={{ padding: '16px', margin: '5px' }}>
-                    <SaveButton
-                        saving={formProps.saving}
-                        handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
-                        style={{backgroundColor: '#124999' }}
-                    />
-                    {props.redirect === 'list' && 
-                        <DeleteButton
-                            style={{ marginLeft: '30px', color: '#f44336' }}
-                            record={formProps.record}
-                            resource={formProps.resource}
-                            basePath={formProps.basePath}
-                            undoable={false}
-                        />
-                    }
-                    </div>
-                </Box>
-            </Toolbar>
-        </form>
-      )}
+    return (
+        <FormWithRedirect
+            {...props}
+            redirect="list"
+            render={formProps => (
+                <form onSubmit={formProps.submit}>
+                    <Typography 
+                        variant="h6" 
+                        align="left" 
+                        gutterBottom={true}
+                        style={{backgroundColor: '#124999', color: '#fff' }}
+                    >
+                        <Box fontWeight="fontWeightBold" textAlign="left" m={1}>
+                            Perfuração
+                        </Box>
+                    </Typography>
+                        <div className={classes.root}>
+                            <Stepper activeStep={activeStep} orientation="vertical">
+                                {steps.map((label, index) => (
+                                    <Step key={label} >
+                                    <StepLabel style={{completed: classes.row}}>{label}</StepLabel>
+                                    <StepContent >
+                                        <div >{getStepContent(index, choice)}</div>
+                                            <div>
+                                                <div>
+                                                    <Button
+                                                        disabled={activeStep === 0}
+                                                        onClick={handleBack}
+                                                    >
+                                                        Voltar
+                                                    </Button>
+                                                    <Button
+                                                        style={{color: '#124999' }}
+                                                        onClick={handleNext}
+                                                    >
+                                                        {activeStep === steps.length - 1 ? 'Finalizar' : 'Próxima'}
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                            </StepContent>
+                                        </Step>
+                                        ))}
+                                    </Stepper>
+                                {activeStep === steps.length && (
+                                    <Paper square elevation={0}>
+                                        <Typography style={{marginLeft: '10px' }}>Todas as etapas estão completas</Typography>
+                                        <Button onClick={handleReset} style={{color: '#f44336' }}>
+                                            Resetar
+                                        </Button>
+                                    </Paper>
+                            )}
+                        </div>
+                    
+                <Toolbar disableGutters>
+                    <Box display="flex" justifyContent="space-between" width="100%">
+                        <div style={{ padding: '16px', margin: '5px' }}>
+                            <SaveButton
+                                saving={formProps.saving}
+                                handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
+                                style={{backgroundColor: '#124999' }}
+                            />
+                            {props.redirect === 'list' && 
+                                <DeleteButton
+                                    style={{ marginLeft: '30px', color: '#f44336' }}
+                                    record={formProps.record}
+                                    resource={formProps.resource}
+                                    basePath={formProps.basePath}
+                                    undoable={false}
+                                />
+                            }
+                        </div>
+                    </Box>
+                </Toolbar>
+            </form>
+        )}
     />
   );
 };

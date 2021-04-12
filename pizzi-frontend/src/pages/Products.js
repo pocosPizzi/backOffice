@@ -88,15 +88,6 @@ const ProductForm = props => {
     });
   }
 
-  const valueFormat = value => {
-
-    var newValeu;
-
-    newValeu = value !== undefined && value.toLocaleString('pt-BR', { minimumFractionDigits: 2}).replace(",", ".");
-
-    return newValeu;
-}
-
   useEffect(() => {
     getChoice();
   }, []);

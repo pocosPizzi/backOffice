@@ -31,13 +31,14 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default function FormattedInputs({name, label, onChange, error, helperText}) {
+export default function FormattedInputs({name, label, onChange, error, helperText, value}) {
 
   return (
     
       <TextField
         label={label}
         onChange={onChange}
+        value={value}
         name={name}
         id="formatted-numberformat-input"
         error={error}

@@ -1,4 +1,3 @@
-import { func } from 'prop-types';
 import React from  'react';
 import { required } from 'react-admin';
 import { useField } from 'react-final-form';
@@ -9,13 +8,13 @@ function defineLabel (name){
     switch (name) {
         case 'valueService':
            return 'Valor do Serviço'
-            break;
+            
         case 'saleValue':
             return 'Valor Venda'
-            break;
+            
         case 'purchasePrice':
             return 'Valor Compra'
-            break;
+            
         default:
             break;
     }
@@ -23,11 +22,14 @@ function defineLabel (name){
 }
 
 const NumberFieldCustom = ({ name }) => {
+
+    const value = useField(name)['input']['value'];
+
     const {
         input: { onChange },
         meta: { touched, error }
     } = useField(name);
-    
+
     const label = defineLabel(name);
 
     return (
@@ -35,6 +37,7 @@ const NumberFieldCustom = ({ name }) => {
             name={name}
             label={label}
             onChange={onChange}
+            value={value}
             error={!!(touched && error)}
             helperText={touched && error}
         />
@@ -42,9 +45,8 @@ const NumberFieldCustom = ({ name }) => {
 };
 
 const PriceInput = props => {
+    
     const {source, resource, ...rest} = props;
-
-    console.log(props)
 
     return (
         <span>

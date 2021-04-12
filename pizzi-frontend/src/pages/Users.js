@@ -73,8 +73,6 @@ export const UserList = props => {
 
 const UserForm = props => {
 
-  console.log(props)
-
   return (
     <FormWithRedirect
       {...props}
