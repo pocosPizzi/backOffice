@@ -26,12 +26,6 @@ public class ProductReqDTO {
     private String categoryName;
 
     @NotNull
-    private Double purchasePrice;
-
-    @NotNull
-    private Double saleValue;
-
-    @NotNull
     private String barCode;
 
     public Product toEntity(Product entity) {
@@ -39,8 +33,6 @@ public class ProductReqDTO {
         entity.setName(this.name);
         entity.setTotalStock(this.totalStock);
         entity.setTypeTotalStock(this.typeTotalStock);
-        entity.setPurchasePrice(this.purchasePrice);
-        entity.setSaleValue(this.saleValue);
         entity.setBarCode(this.barCode);
 
         return entity;

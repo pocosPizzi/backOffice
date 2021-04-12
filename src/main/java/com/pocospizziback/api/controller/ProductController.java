@@ -3,6 +3,7 @@ package com.pocospizziback.api.controller;
 import com.pocospizziback.api.bases.PageReq;
 import com.pocospizziback.api.bases.PageRes;
 import com.pocospizziback.api.dto.req.ProductReqDTO;
+import com.pocospizziback.api.dto.res.ProductChoiceResDTO;
 import com.pocospizziback.api.dto.res.ProductResDTO;
 import com.pocospizziback.api.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @PreAuthorize("hasAuthority('ADMIN')")
 @RestController
@@ -35,6 +37,11 @@ public class ProductController {
     public ProductResDTO show(@PathVariable("id") Long id) {
 
         return this.service.findByIdDTO(id);
+    }
+
+    @GetMapping("/choice")
+    public List<ProductChoiceResDTO> choiceProduct(){
+        return this.service.findAllChoice();
     }
 
     @PutMapping("/{id}")

@@ -28,7 +28,7 @@ import { ListFilterWithDeleteds } from '../components/ListFilter';
 import {EnumRadioField, EnumRadioInput } from '../components/Enums';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import springProvider from '../providers/dataProvider';
-
+import LocalDateTimeField from '../components/LocalDateTimeField';
 const useStyles = makeStyles(theme => ({
 
     typography: {
@@ -60,10 +60,11 @@ export const ProductList = props => {
       {...props}
     >
       <Datagrid classes={{ headerCell: classes.row }}>
-        <TextField source="barCode" />
         <TextField source="name" />
+        <TextField source="barCode" />
         <TextField source="totalStock" />
         <EnumRadioField source="typeTotalStock"/>
+        <LocalDateTimeField resource="products" source="uptededBy"/>
         <EditButton
           variant="outlined"
           color="primary"
@@ -122,49 +123,35 @@ const ProductForm = props => {
                 direction="row"
                 justify="center">
             <Grid item xs={4}>
-              <TextInput
-                resource="products"
-                source="barCode"
-                validate={required()}
-              />
+              
               <TextInput
                 resource="products"
                 source="name"
                 validate={required()}
               />
-            </Grid>
-            <Grid item xs={3}>
-              <NumberInput
-                format={ value => valueFormat(value)}
+              <TextInput
                 resource="products"
-                source="purchasePrice"
+                source="barCode"
                 validate={required()}
               />
-              <NumberInput
-                format={ value => valueFormat(value)}
-                resource="products"
-                source="saleValue"
-                validate={required()}
-              />
-            </Grid>
-            <Grid item xs={3}>   
               <SelectInput
                 resource="products"
                 source="categoryId"
                 validate={required()}
                 choices={response}
               />
+            </Grid>
+            <Grid item xs={3}>   
+              
               <NumberInput
                 resource="products"
                 source="totalStock"
                 validate={required()}
               />
-            </Grid>
-            <Grid item xs={3}>   
-            <EnumRadioInput 
-                 resource="products"
-                 source="typeTotalStock"
-              /> 
+              <EnumRadioInput 
+                  resource="products"
+                  source="typeTotalStock"
+                />
             </Grid>
           </Grid>
           <Toolbar disableGutters>

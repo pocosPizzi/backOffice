@@ -1,6 +1,5 @@
 package com.pocospizziback.api.dto.req;
 
-import com.pocospizziback.api.domain.TypeService;
 import com.pocospizziback.api.model.Perforation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,6 +45,12 @@ public class PerforationReqDTO {
 
     private Double valueService;
 
+    private Integer mechanicalGeoCoatingMeters;
+
+    private Boolean sealDisplacement;
+
+    private LocalDate datePerforation;
+
     private List<ProductUsedReqDTO> productTempList;
 
     public Perforation toEntity(Perforation entity) {
@@ -65,6 +70,9 @@ public class PerforationReqDTO {
         entity.setPerforatedMeters(this.perforatedMeters);
         entity.setObservation(this.observation);
         entity.setValueService(this.valueService);
+        entity.setMechanicalGeoCoatingMeters(this.mechanicalGeoCoatingMeters);
+        entity.setSealDisplacement(this.sealDisplacement);
+        entity.setDatePerforation(this.datePerforation);
 
         return entity;
     }

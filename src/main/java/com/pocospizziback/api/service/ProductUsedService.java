@@ -22,6 +22,10 @@ public class ProductUsedService {
 
         Product product = this.productService.findByIdEntity(dto.getProductId());
 
+        Integer value = product.getTotalStock() - dto.getTotalUsed();
+
+        this.productService.updateStockProduct(value, product.getId());
+
         ProductUsed entity = ProductUsed.builder()
                 .totalUsed(dto.getTotalUsed())
                 .product(product)
@@ -37,8 +41,18 @@ public class ProductUsedService {
 
     public ProductUsed update(ProductUsedReqDTO dto) {
 
-        ProductUsed entity = dto.toEntity(this.findById(dto.getId()));
+        ProductUsed entity;
+        ProductUsed entityOld = this.findById(dto.getId());
 
-        return entity;
+        if (dto.getId() == null) {
+
+            entity = this.save(dto);
+
+        } else {
+//criar regra para fazer as modificações no stoque conforme vei as mudanças de produto
+            entity = dto.toEntity(entityOld);
+        }
+
+        return this.repository.save(entity);
     }
 }

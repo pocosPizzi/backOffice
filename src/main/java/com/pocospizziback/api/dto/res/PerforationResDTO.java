@@ -62,6 +62,12 @@ public class PerforationResDTO {
 
     private Double valueService;
 
+    private Integer mechanicalGeoCoatingMeters;
+
+    private Boolean sealDisplacement;
+
+    private LocalDate datePerforation;
+
     private List<ProductUsedResDTO> productTempList;
 
     public PerforationResDTO(Perforation entity) {
@@ -87,6 +93,9 @@ public class PerforationResDTO {
         this.perforatedMeters = entity.getPerforatedMeters();
         this.observation = entity.getObservation();
         this.valueService = entity.getValueService();
+        this.mechanicalGeoCoatingMeters = entity.getMechanicalGeoCoatingMeters();
+        this.sealDisplacement = entity.getSealDisplacement();
+        this.datePerforation = entity.getDatePerforation();
         this.productTempList = entity.getProductsUsed() != null ? entity.getProductsUsed().stream().map(ProductUsedResDTO::of).collect(Collectors.toList()) : null;
     }
 

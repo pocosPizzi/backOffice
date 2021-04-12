@@ -15,6 +15,11 @@ const enums = {
   typeTotalStock: [
     'UNITY',
     'METERS'
+  ],
+
+  sealDisplacement: [
+    true,
+    false
   ]
 };
 const enumsStyles = {

@@ -56,7 +56,9 @@ export const CategoryList = props => {
       {...props}
     >
       <Datagrid classes={{ headerCell: classes.row }}>
+        <TextField source="id" />
         <TextField source="name" />
+        <TextField source="createdBy" />
         <EditButton
           variant="outlined"
           color="primary"

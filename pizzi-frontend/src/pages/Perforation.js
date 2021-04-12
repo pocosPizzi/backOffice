@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { 
   Box, 
   Grid,
@@ -6,20 +6,28 @@ import {
   Typography,
   Toolbar 
 } from '@material-ui/core';
-import OpacityOutlinedIcon from '@material-ui/icons/OpacityOutlined';import {
-  Create,
-  Datagrid,
-  DeleteButton,
-  Edit,
-  EditButton,
-  FormWithRedirect,
-  List,
-  ListButton,
-  required,
-  SaveButton,
-  TextField,
-  TextInput,
-  TopToolbar,
+import OpacityOutlinedIcon from '@material-ui/icons/OpacityOutlined';
+import {
+    AutocompleteInput,
+    ArrayInput,
+    BooleanInput,
+    Create,
+    Datagrid,
+    DateInput,
+    DeleteButton,
+    Edit,
+    EditButton,
+    FormWithRedirect,
+    List,
+    ListButton,
+    NumberField,
+    NumberInput,
+    required,
+    SaveButton,
+    SimpleFormIterator,
+    TextField,
+    TextInput,
+    TopToolbar,
 } from 'react-admin';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -29,6 +37,10 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { ListFilterWithDeleteds } from '../components/ListFilter';
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import PriceInput from '../components/PriceInput';
+import {EnumRadioInput} from '../components/Enums';
+import LocalDateField from '../components/LocalDateField';
+import dataProvider from '../providers/dataProvider';
 
 
 const useStyles = makeStyles(theme => ({
@@ -66,145 +78,195 @@ const useStyles = makeStyles(theme => ({
 );
 
 function getSteps() {
-    return ['Dados do Cliente', 'Dados de Endereço', 'Dados do Poço'];
-  }
+    return ['Dados do Cliente', 'Dados de Endereço', 'Dados do Poço', 'Materiais usado', 'Valores'];
+}
   
-function getStepContent(step) {
-switch (step) {
-    case 0:
-    return (
-        <Grid 
-            container
-            spacing={6}
-            alignItems="center"
-            justify="center"
-        >
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="nameClient"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="cpf"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="rg"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="birthday"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="phone"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="email"
-                    validate={required()}
-                />
-            </Grid>
-        </Grid>)
-    case 1:
-    return (
-        <Grid 
-            container
-            spacing={6}
-            alignItems="center"
-            justify="center"
-        >
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="uf"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="city"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="district"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="street"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="numberHouse"
-                    validate={required()}
-                />
-            </Grid>
-        </Grid>)
-    case 2:
-    return (
-        <Grid 
-            container
-            spacing={6}
-            alignItems="center"
-            justify="center"
-        >
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="description"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="perforatedMeters"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="observation"
-                    validate={required()}
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <TextInput
-                    resource="perforations"
-                    source="valueService"
-                    validate={required()}
-                />
-            </Grid>
-        </Grid>)
-    default:
-    return 'Unknown step';
+function getStepContent(step, choices) {
+
+    switch (step) {
+        case 0:
+        return (
+            <Grid 
+                container
+                spacing={6}
+                alignItems="center"
+                justify="center"
+            >
+                <Grid item xs={3}>
+                    <TextInput
+                        resource="perforations"
+                        source="nameClient"
+                        validate={required()}
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <TextInput
+                        resource="perforations"
+                        source="cpf"
+                        validate={required()}
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <TextInput
+                        resource="perforations"
+                        source="rg"
+                        validate={required()}
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <DateInput
+                        resource="perforations"
+                        source="birthday"
+                        validate={required()}
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <TextInput
+                        resource="perforations"
+                        source="phone"
+                        validate={required()}
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <TextInput
+                        resource="perforations"
+                        source="email"
+                        validate={required()}
+                    />
+                </Grid>
+            </Grid>)
+        case 1:
+        return (
+            <Grid 
+                container
+                spacing={6}
+                alignItems="center"
+                justify="center"
+            >
+                <Grid item xs={3}>
+                    <TextInput
+                        resource="perforations"
+                        source="uf"
+                        validate={required()}
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <TextInput
+                        resource="perforations"
+                        source="city"
+                        validate={required()}
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <TextInput
+                        resource="perforations"
+                        source="district"
+                        validate={required()}
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <TextInput
+                        resource="perforations"
+                        source="street"
+                        validate={required()}
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <NumberInput
+                        resource="perforations"
+                        source="numberHouse"
+                        validate={required()}
+                    />
+                </Grid>
+            </Grid>)
+        case 2:
+            return (
+                
+                <Grid 
+                    container
+                    spacing={6}
+                    alignItems="center"
+                    justify="center"
+                    
+                >
+                    <Grid item xs={3}>
+                        <NumberInput
+                            resource="perforations"
+                            source="mechanicalGeoCoatingMeters"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <TextInput
+                            resource="perforations"
+                            source="description"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <DateInput
+                            resource="perforations"
+                            source="datePerforation"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <NumberInput
+                            resource="perforations"
+                            source="perforatedMeters"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <TextInput
+                            resource="perforations"
+                            source="observation"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <EnumRadioInput
+                            resource="perforations"
+                            source="sealDisplacement"
+                        />
+                    </Grid>
+                </Grid>)
+        case 3:
+            return (
+                <Grid 
+                    container
+                    spacing={1}
+                    alignItems="center"
+                    justify="center"
+                >
+                   <ArrayInput resource="perforations" source="productTempList">
+                        <SimpleFormIterator style={{width: '40%'}}>
+                            <AutocompleteInput source="productId" choices={choices}/>
+                            <TextInput source="totalUsed" />
+                        </SimpleFormIterator>
+                    </ArrayInput>
+                </Grid>)
+        case 4:
+            return (
+                
+                <Grid 
+                    container
+                    spacing={6}
+                    alignItems="center"
+                    justify="center"
+                >
+                    <Grid item xs={3}>
+                        <PriceInput
+                            resource="perforations"
+                            placeholder="perforations"
+                            source="valueService"
+                            name="valueService"
+                            validate={required()}
+                        />
+                    </Grid>
+                </Grid>)
+        default:
+            return 'Unknown step';
 }
 }
 
@@ -220,7 +282,17 @@ export const PerforationList = props => {
       {...props}
     >
       <Datagrid classes={{ headerCell: classes.row }}>
-        <TextField source="name" />
+        <TextField source="nameClient" />
+        <TextField source="perforatedMeters" />
+        <LocalDateField source="datePerforation" />
+        <NumberField
+            resource="perforations"
+            source="valueService"
+            options={{
+                style: 'currency',
+                currency: 'BRL',
+            }}
+        />
         <EditButton
           variant="outlined"
           color="primary"
@@ -235,6 +307,7 @@ const PerforationForm = props => {
 
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(0);
+    const [choice, setChoice] = useState();
     const steps = getSteps();
 
     const handleNext = () => {
@@ -248,6 +321,18 @@ const PerforationForm = props => {
     const handleReset = () => {
         setActiveStep(0);
     };
+
+    const getChoice = () => {
+
+        dataProvider('GET', `products/choice`).then(res => {
+            setChoice(res.data);
+    
+        });
+    }
+
+    useEffect(() => {
+        getChoice();
+    }, []);
 
 
   return (
@@ -271,7 +356,7 @@ const PerforationForm = props => {
                     <Step key={label} >
                         <StepLabel style={{completed: classes.row}}>{label}</StepLabel>
                         <StepContent >
-                            <Typography >{getStepContent(index)}</Typography>
+                            <Typography >{getStepContent(index, choice)}</Typography>
                             <div>
                                 <div>
                                     <Button

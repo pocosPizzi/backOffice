@@ -5,6 +5,7 @@ import com.pocospizziback.api.bases.PageRes;
 import com.pocospizziback.api.config.i18n.Messages;
 import com.pocospizziback.api.config.i18n.ServiceException;
 import com.pocospizziback.api.dto.req.ProductReqDTO;
+import com.pocospizziback.api.dto.res.ProductChoiceResDTO;
 import com.pocospizziback.api.dto.res.ProductResDTO;
 import com.pocospizziback.api.model.Category;
 import com.pocospizziback.api.model.Product;
@@ -16,6 +17,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,4 +78,19 @@ public class ProductService {
 
         this.repository.softDelete(id);
     }
+
+    public List<ProductChoiceResDTO> findAllChoice() {
+
+        return this.findAll(PageReq.builder().build()).getContent().stream().map(ProductChoiceResDTO::of).collect(Collectors.toList());
+    }
+
+    public void updateStockProduct(Integer value, Long productId){
+
+        Product product = this.findByIdEntity(productId);
+
+        product.setTotalStock(value);
+
+        this.repository.save(product);
+    }
+
 }

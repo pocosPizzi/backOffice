@@ -28,10 +28,6 @@ public class Product extends BaseEntity implements Serializable {
 
     private TypeTotalStock typeTotalStock;
 
-    private Double purchasePrice;
-
-    private Double saleValue;
-
     private String barCode;
 
     @ManyToOne

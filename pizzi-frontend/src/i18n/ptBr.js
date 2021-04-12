@@ -19,6 +19,11 @@ ptbrMessages.enums = {
   typeTotalStock: {
     UNITY: 'Un',
     METERS: 'Mt'
+  },
+
+  sealDisplacement: {
+    true: 'Sim',
+    false: 'Não'
   }
 };
 
@@ -83,6 +88,7 @@ ptbrMessages.resources = {
     fields: {
       updatedAt: 'Atualizado em',
       updatedBy: 'Atualizado por',
+      createdBy: 'Criado por',
       name: 'Categoria',
     },
   },
@@ -105,7 +111,7 @@ ptbrMessages.resources = {
     },
   },
 
-  'perforations' : {
+  perforations : {
     empty: ptbrMessages.page.empty,
     invite: ptbrMessages.page.invite,
     name: 'Perfuração |||| Perfurações',
@@ -126,7 +132,14 @@ ptbrMessages.resources = {
       description: 'Descrição',
       perforatedMeters: 'Metros Perfurados',
       observation: 'Observação',
-      valueService: 'Valor da Perfuração'
+      valueService: 'Valor da Perfuração',
+      sealDisplacement: 'Deslocamento/Vedação',
+      datePerforation: 'Data da Perfuração',
+      mechanicalGeoCoatingMeters: 'Metros de Revestimento Geo Mecânico ',
+      productTempList: 'Lista de Materiais',
+      productId: 'Material',
+      totalUsed: 'Total Usado'
+
     },
   }
 };

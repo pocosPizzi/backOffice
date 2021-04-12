@@ -53,6 +53,12 @@ public class Perforation extends BaseEntity implements Serializable {
 
     private Double valueService;
 
-    @ManyToMany
+    private Integer mechanicalGeoCoatingMeters;
+
+    private Boolean sealDisplacement;
+
+    private LocalDate datePerforation;
+
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<ProductUsed> productsUsed;
 }

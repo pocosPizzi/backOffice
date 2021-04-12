@@ -16,17 +16,14 @@ public class ProductUsedResDTO {
 
     private Long id;
 
-    private String name;
-
-    private TypeTotalStock typeTotalStock;
+    private Long productId;
 
     private Integer totalUsed;
 
     public ProductUsedResDTO(ProductUsed entity) {
 
         this.id = entity.getId();
-        this.name = entity.getProduct().getName();
-        this.typeTotalStock = entity.getProduct().getTypeTotalStock();
+        this.productId = entity.getProduct().getId();
         this.totalUsed = entity.getTotalUsed();
     }
 

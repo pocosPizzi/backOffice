@@ -7,6 +7,7 @@ import com.pocospizziback.api.config.i18n.ServiceException;
 import com.pocospizziback.api.dto.req.PerforationReqDTO;
 import com.pocospizziback.api.dto.res.PerforationResDTO;
 import com.pocospizziback.api.model.Perforation;
+import com.pocospizziback.api.model.Product;
 import com.pocospizziback.api.model.ProductUsed;
 import com.pocospizziback.api.repository.PerforationRepository;
 import com.pocospizziback.api.util.SearchUtils;
@@ -28,11 +29,14 @@ public class PerforationService {
     @Autowired
     private ProductUsedService productUsedService;
 
+    @Autowired
+    private ProductService productService;
+
     public PerforationResDTO save(PerforationReqDTO dto) {
 
         List<ProductUsed> productUsedList = new ArrayList<>();
 
-        if (dto.getProductTempList().isEmpty() == false) {
+        if (dto.getProductTempList() != null && dto.getProductTempList().isEmpty() == false) {
             dto.getProductTempList().forEach(productUsedReqDTO -> {
                 productUsedList.add(this.productUsedService.save(productUsedReqDTO));
             });
@@ -75,13 +79,31 @@ public class PerforationService {
 
         List<ProductUsed> productUsedList = new ArrayList<>();
 
-        if (dto.getProductTempList().isEmpty() == false) {
+        if (dto.getProductTempList() != null && dto.getProductTempList().isEmpty() == false) {
+
             dto.getProductTempList().forEach(productUsedReqDTO -> {
                 productUsedList.add(this.productUsedService.update(productUsedReqDTO));
             });
+
         }
 
         Perforation entity = dto.toEntity(this.findByIdEntity(id));
+
+        List<ProductUsed> productUsedListOld = entity.getProductsUsed();
+
+        productUsedListOld.forEach( oldProduct -> {
+
+            if(productUsedList.contains(oldProduct) == false){
+
+                Product product = oldProduct.getProduct();
+
+                Integer value = product.getTotalStock() + oldProduct.getTotalUsed();
+
+                this.productService.updateStockProduct(value, product.getId());
+
+            }
+
+        });
 
         entity.getProductsUsed().clear();
 
