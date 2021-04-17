@@ -1,10 +1,10 @@
 import React from 'react';
-import { 
-  Box, 
+import {
+  Box,
   Grid,
   makeStyles,
   Typography,
-  Toolbar 
+  Toolbar
 } from '@material-ui/core';
 import CategoryOutlinedIcon from '@material-ui/icons/CategoryOutlined';
 import {
@@ -27,27 +27,27 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 
 const useStyles = makeStyles(theme => ({
 
-    typography: {
-      backgroundColor: 'primary',
-      color: "#fff",
-      fontWeight: 'bolder',
-      fontSize: '16px'
-    },
+  typography: {
+    backgroundColor: 'primary',
+    color: "#fff",
+    fontWeight: 'bolder',
+    fontSize: '16px'
+  },
 
-    row: {
-      backgroundColor: '#124999',
-      color: '#fff',
-      fontWeight: 'bolder',
-      fontSize: '16px',
-    },
-  })
+  row: {
+    backgroundColor: '#124999',
+    color: '#fff',
+    fontWeight: 'bolder',
+    fontSize: '16px',
+  },
+})
 
 );
 
 export const CategoryList = props => {
 
   const classes = useStyles();
-  
+
   return (
     <List
       filters={<ListFilterWithDeleteds />}
@@ -62,7 +62,7 @@ export const CategoryList = props => {
         <EditButton
           variant="outlined"
           color="primary"
-          >
+        >
         </EditButton>
       </Datagrid>
     </List>
@@ -76,14 +76,14 @@ const CategoryForm = props => {
       redirect="list"
       render={formProps => (
         <form onSubmit={formProps.submit}>
-           <Typography 
-            variant="h6" 
-            align="left" 
+          <Typography
+            variant="h6"
+            align="left"
             gutterBottom={true}
-            style={{backgroundColor: '#124999', color: '#fff', padding: '5px'}}
+            style={{ backgroundColor: '#124999', color: '#fff', padding: '5px' }}
           >
             <Box fontWeight="fontWeightBold" textAlign="left" m={0}>
-             Categoria de Produtos
+              Categoria de Produtos
             </Box>
 
           </Typography>
@@ -98,21 +98,21 @@ const CategoryForm = props => {
           </Grid>
           <Toolbar disableGutters>
             <Box display="flex" justifyContent="space-between" width="100%">
-                <div style={{ padding: '16px', margin: '5px' }}>
-                  <SaveButton
-                      saving={formProps.saving}
-                      handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
+              <div style={{ padding: '16px', margin: '5px' }}>
+                <SaveButton
+                  saving={formProps.saving}
+                  handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
+                />
+                {props.redirect === 'list' &&
+                  <DeleteButton
+                    style={{ marginLeft: '30px' }}
+                    record={formProps.record}
+                    resource={formProps.resource}
+                    basePath={formProps.basePath}
+                    undoable={false}
                   />
-                  {props.redirect === 'list' && 
-                    <DeleteButton
-                      style={{ marginLeft: '30px' }}
-                      record={formProps.record}
-                      resource={formProps.resource}
-                      basePath={formProps.basePath}
-                      undoable={false}
-                    />
-                  }
-                </div>
+                }
+              </div>
             </Box>
           </Toolbar>
         </form>

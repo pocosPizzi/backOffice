@@ -43,8 +43,8 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         const search = { filter: filter.q, ...filter };
         url = `${apiUrl}/${resource}?page=${page -
           1}&size=${perPage}&sort=${field}:${order.toLowerCase()}&${stringify(
-          search
-        )}`;
+            search
+          )}`;
         // &filter=${filter.q ? filter.q : ''}`;
         break;
       }

@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import { 
-  Box, 
-  Grid,
-  makeStyles,
-  Typography,
-  Toolbar 
+import React, { useEffect, useState } from 'react';
+import {
+    Box,
+    Grid,
+    makeStyles,
+    Typography,
+    Toolbar
 } from '@material-ui/core';
 import OpacityOutlinedIcon from '@material-ui/icons/OpacityOutlined';
 import {
@@ -37,7 +37,7 @@ import Paper from '@material-ui/core/Paper';
 import { ListFilterWithDeleteds } from '../components/ListFilter';
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
 import PriceInput from '../components/PriceInput';
-import {EnumRadioInput} from '../components/Enums';
+import { EnumRadioInput } from '../components/Enums';
 import LocalDateField from '../components/LocalDateField';
 import dataProvider from '../providers/dataProvider';
 
@@ -45,148 +45,148 @@ import dataProvider from '../providers/dataProvider';
 const useStyles = makeStyles(theme => ({
 
     typography: {
-      backgroundColor: 'primary',
-      color: "#fff",
-      fontWeight: 'bolder',
-      fontSize: '16px'
+        backgroundColor: 'primary',
+        color: "#fff",
+        fontWeight: 'bolder',
+        fontSize: '16px'
     },
 
     row: {
-      backgroundColor: '#124999',
-      color: '#fff',
-      fontWeight: 'bolder',
-      fontSize: '16px',
+        backgroundColor: '#124999',
+        color: '#fff',
+        fontWeight: 'bolder',
+        fontSize: '16px',
     },
 
     root: {
         width: '100%',
-      },
-      button: {
+    },
+    button: {
         marginTop: theme.spacing(1),
         marginRight: theme.spacing(1),
-      },
-      actionsContainer: {
+    },
+    actionsContainer: {
         marginBottom: theme.spacing(2),
-      },
-      resetContainer: {
+    },
+    resetContainer: {
         padding: theme.spacing(3),
-      },
+    },
 
-  })
+})
 
 );
 
 function getSteps() {
     return ['Dados do Cliente', 'Dados de Endereço', 'Dados do Poço', 'Materiais usado', 'Valores'];
 }
-  
+
 function getStepContent(step, choices, disabled) {
 
     switch (step) {
         case 0:
-        return (
-            <Grid 
-                container
-                spacing={6}
-                alignItems="center"
-                justify="center"
-            >
-                <Grid item xs={3}>
-                    <TextInput
-                        resource="perforations"
-                        source="nameClient"
-                        validate={required()}
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <TextInput
-                        resource="perforations"
-                        source="cpf"
-                        validate={required()}
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <TextInput
-                        resource="perforations"
-                        source="rg"
-                        validate={required()}
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <DateInput
-                        resource="perforations"
-                        source="birthday"
-                        validate={required()}
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <TextInput
-                        resource="perforations"
-                        source="phone"
-                        validate={required()}
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <TextInput
-                        resource="perforations"
-                        source="email"
-                        validate={required()}
-                    />
-                </Grid>
-            </Grid>)
-        case 1:
-        return (
-            <Grid 
-                container
-                spacing={6}
-                alignItems="center"
-                justify="center"
-            >
-                <Grid item xs={3}>
-                    <TextInput
-                        resource="perforations"
-                        source="uf"
-                        validate={required()}
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <TextInput
-                        resource="perforations"
-                        source="city"
-                        validate={required()}
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <TextInput
-                        resource="perforations"
-                        source="district"
-                        validate={required()}
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <TextInput
-                        resource="perforations"
-                        source="street"
-                        validate={required()}
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <NumberInput
-                        resource="perforations"
-                        source="numberHouse"
-                        validate={required()}
-                    />
-                </Grid>
-            </Grid>)
-        case 2:
             return (
-                
-                <Grid 
+                <Grid
                     container
                     spacing={6}
                     alignItems="center"
                     justify="center"
-                    
+                >
+                    <Grid item xs={3}>
+                        <TextInput
+                            resource="perforations"
+                            source="nameClient"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <TextInput
+                            resource="perforations"
+                            source="cpf"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <TextInput
+                            resource="perforations"
+                            source="rg"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <DateInput
+                            resource="perforations"
+                            source="birthday"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <TextInput
+                            resource="perforations"
+                            source="phone"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <TextInput
+                            resource="perforations"
+                            source="email"
+                            validate={required()}
+                        />
+                    </Grid>
+                </Grid>)
+        case 1:
+            return (
+                <Grid
+                    container
+                    spacing={6}
+                    alignItems="center"
+                    justify="center"
+                >
+                    <Grid item xs={3}>
+                        <TextInput
+                            resource="perforations"
+                            source="uf"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <TextInput
+                            resource="perforations"
+                            source="city"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <TextInput
+                            resource="perforations"
+                            source="district"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <TextInput
+                            resource="perforations"
+                            source="street"
+                            validate={required()}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <NumberInput
+                            resource="perforations"
+                            source="numberHouse"
+                            validate={required()}
+                        />
+                    </Grid>
+                </Grid>)
+        case 2:
+            return (
+
+                <Grid
+                    container
+                    spacing={6}
+                    alignItems="center"
+                    justify="center"
+
                 >
                     <Grid item xs={3}>
                         <NumberInput
@@ -232,23 +232,23 @@ function getStepContent(step, choices, disabled) {
                 </Grid>)
         case 3:
             return (
-                <Grid 
+                <Grid
                     container
                     spacing={1}
                     alignItems="center"
                     justify="center"
                 >
-                   <ArrayInput resource="perforations" source="productTempList">
-                        <SimpleFormIterator style={{width: '40%'}}>
-                            <AutocompleteInput source="productId" choices={choices}/>
+                    <ArrayInput resource="perforations" source="productTempList">
+                        <SimpleFormIterator style={{ width: '40%' }}>
+                            <AutocompleteInput source="productId" choices={choices} />
                             <TextInput source="totalUsed" />
                         </SimpleFormIterator>
                     </ArrayInput>
                 </Grid>)
         case 4:
             return (
-                
-                <Grid 
+
+                <Grid
                     container
                     spacing={6}
                     alignItems="center"
@@ -266,40 +266,40 @@ function getStepContent(step, choices, disabled) {
                 </Grid>)
         default:
             return 'Unknown step';
-}
+    }
 }
 
 export const PerforationList = props => {
 
-  const classes = useStyles();
-  
-  return (
-    <List
-      filters={<ListFilterWithDeleteds />}
-      bulkActionButtons={false}
-      exporter={false}
-      {...props}
-    >
-      <Datagrid classes={{ headerCell: classes.row }}>
-        <TextField source="nameClient" />
-        <TextField source="perforatedMeters" />
-        <LocalDateField source="datePerforation" />
-        <NumberField
-            resource="perforations"
-            source="valueService"
-            options={{
-                style: 'currency',
-                currency: 'BRL',
-            }}
-        />
-        <EditButton
-          variant="outlined"
-          color="primary"
+    const classes = useStyles();
+
+    return (
+        <List
+            filters={<ListFilterWithDeleteds />}
+            bulkActionButtons={false}
+            exporter={false}
+            {...props}
         >
-        </EditButton>
-      </Datagrid>
-    </List>
-  )
+            <Datagrid classes={{ headerCell: classes.row }}>
+                <TextField source="nameClient" />
+                <TextField source="perforatedMeters" />
+                <LocalDateField source="datePerforation" />
+                <NumberField
+                    resource="perforations"
+                    source="valueService"
+                    options={{
+                        style: 'currency',
+                        currency: 'BRL',
+                    }}
+                />
+                <EditButton
+                    variant="outlined"
+                    color="primary"
+                >
+                </EditButton>
+            </Datagrid>
+        </List>
+    )
 };
 
 const PerforationForm = props => {
@@ -325,7 +325,7 @@ const PerforationForm = props => {
 
         dataProvider('GET', `products/choice`).then(res => {
             setChoice(res.data);
-    
+
         });
     }
 
@@ -339,102 +339,102 @@ const PerforationForm = props => {
             redirect="list"
             render={formProps => (
                 <form onSubmit={formProps.submit}>
-                    <Typography 
-                        variant="h6" 
-                        align="left" 
+                    <Typography
+                        variant="h6"
+                        align="left"
                         gutterBottom={true}
-                        style={{backgroundColor: '#124999', color: '#fff' }}
+                        style={{ backgroundColor: '#124999', color: '#fff' }}
                     >
                         <Box fontWeight="fontWeightBold" textAlign="left" m={1}>
                             Perfuração
                         </Box>
                     </Typography>
-                        <div className={classes.root}>
-                            <Stepper activeStep={activeStep} orientation="vertical">
-                                {steps.map((label, index) => (
-                                    <Step key={label} >
-                                    <StepLabel style={{completed: classes.row}}>{label}</StepLabel>
+                    <div className={classes.root}>
+                        <Stepper activeStep={activeStep} orientation="vertical">
+                            {steps.map((label, index) => (
+                                <Step key={label} >
+                                    <StepLabel style={{ completed: classes.row }}>{label}</StepLabel>
                                     <StepContent >
                                         <div >{getStepContent(index, choice)}</div>
+                                        <div>
                                             <div>
-                                                <div>
-                                                    <Button
-                                                        disabled={activeStep === 0}
-                                                        onClick={handleBack}
-                                                    >
-                                                        Voltar
+                                                <Button
+                                                    disabled={activeStep === 0}
+                                                    onClick={handleBack}
+                                                >
+                                                    Voltar
                                                     </Button>
-                                                    <Button
-                                                        style={{color: '#124999' }}
-                                                        onClick={handleNext}
-                                                    >
-                                                        {activeStep === steps.length - 1 ? 'Finalizar' : 'Próxima'}
-                                                    </Button>
-                                                </div>
+                                                <Button
+                                                    style={{ color: '#124999' }}
+                                                    onClick={handleNext}
+                                                >
+                                                    {activeStep === steps.length - 1 ? 'Finalizar' : 'Próxima'}
+                                                </Button>
                                             </div>
-                                            </StepContent>
-                                        </Step>
-                                        ))}
-                                    </Stepper>
-                                {activeStep === steps.length && (
-                                    <Paper square elevation={0}>
-                                        <Typography style={{marginLeft: '10px' }}>Todas as etapas estão completas</Typography>
-                                        <Button onClick={handleReset} style={{color: '#f44336' }}>
-                                            Resetar
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                            ))}
+                        </Stepper>
+                        {activeStep === steps.length && (
+                            <Paper square elevation={0}>
+                                <Typography style={{ marginLeft: '10px' }}>Todas as etapas estão completas</Typography>
+                                <Button onClick={handleReset} style={{ color: '#f44336' }}>
+                                    Resetar
                                         </Button>
-                                    </Paper>
-                            )}
-                        </div>
-                    
-                <Toolbar disableGutters>
-                    <Box display="flex" justifyContent="space-between" width="100%">
-                        <div style={{ padding: '16px', margin: '5px' }}>
-                            <SaveButton
-                                saving={formProps.saving}
-                                handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
-                                style={{backgroundColor: '#124999' }}
-                            />
-                            {props.redirect === 'list' && 
-                                <DeleteButton
-                                    style={{ marginLeft: '30px', color: '#f44336' }}
-                                    record={formProps.record}
-                                    resource={formProps.resource}
-                                    basePath={formProps.basePath}
-                                    undoable={false}
+                            </Paper>
+                        )}
+                    </div>
+
+                    <Toolbar disableGutters>
+                        <Box display="flex" justifyContent="space-between" width="100%">
+                            <div style={{ padding: '16px', margin: '5px' }}>
+                                <SaveButton
+                                    saving={formProps.saving}
+                                    handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
+                                    style={{ backgroundColor: '#124999' }}
                                 />
-                            }
-                        </div>
-                    </Box>
-                </Toolbar>
-            </form>
-        )}
-    />
-  );
+                                {props.redirect === 'list' &&
+                                    <DeleteButton
+                                        style={{ marginLeft: '30px', color: '#f44336' }}
+                                        record={formProps.record}
+                                        resource={formProps.resource}
+                                        basePath={formProps.basePath}
+                                        undoable={false}
+                                    />
+                                }
+                            </div>
+                        </Box>
+                    </Toolbar>
+                </form>
+            )}
+        />
+    );
 };
 
 export const PerforationEdit = props => {
-  return (
-    <Edit undoable={false} actions={<FormActions />} {...props}>
-      <PerforationForm {...props} />
-    </Edit>
-  );
+    return (
+        <Edit undoable={false} actions={<FormActions />} {...props}>
+            <PerforationForm {...props} />
+        </Edit>
+    );
 };
 
 export const PerforationCreate = props => (
-  <Create undoable="false" actions={<FormActions />} {...props}>
-    <PerforationForm {...props} />
-  </Create>
+    <Create undoable="false" actions={<FormActions />} {...props}>
+        <PerforationForm {...props} />
+    </Create>
 );
 
 const FormActions = ({ basePath }) => (
-  <TopToolbar>
-    <ListButton style={{color: '#124999'}} icon={<ChevronLeft />} label="Voltar" basePath={basePath} />
-  </TopToolbar>
+    <TopToolbar>
+        <ListButton style={{ color: '#124999' }} icon={<ChevronLeft />} label="Voltar" basePath={basePath} />
+    </TopToolbar>
 );
 
 export default {
-  create: PerforationCreate,
-  edit: PerforationEdit,
-  list: PerforationList,
-  icon: OpacityOutlinedIcon,
+    create: PerforationCreate,
+    edit: PerforationEdit,
+    list: PerforationList,
+    icon: OpacityOutlinedIcon,
 };

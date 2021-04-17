@@ -18,7 +18,8 @@ function NumberFormatCustom(props) {
           },
         });
       }}
-      thousandSeparator
+      decimalSeparator="."
+      thousandSeparator=","
       isNumericString
       prefix="R$"
     />
@@ -31,22 +32,22 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default function FormattedInputs({name, label, onChange, error, helperText, value}) {
+export default function FormattedInputsPrice({ name, label, onChange, error, helperText, value }) {
 
   return (
-    
-      <TextField
-        label={label}
-        onChange={onChange}
-        value={value}
-        name={name}
-        id="formatted-numberformat-input"
-        error={error}
-        helperText={helperText}
-        InputProps={{
-          inputComponent: NumberFormatCustom,
-        }}
-      />
-    
+
+    <TextField
+      label={label}
+      onChange={onChange}
+      value={value}
+      name={name}
+      id="formatted-numberformat-input"
+      error={error}
+      helperText={helperText}
+      InputProps={{
+        inputComponent: NumberFormatCustom,
+      }}
+    />
+
   );
 }

@@ -1,24 +1,24 @@
-import React from  'react';
+import React from 'react';
 import { required } from 'react-admin';
 import { useField } from 'react-final-form';
 import InputPrice from './InputPrice';
 
-function defineLabel (name){
-    
+function defineLabel(name) {
+
     switch (name) {
         case 'valueService':
-           return 'Valor do Serviço'
-            
+            return 'Valor do Serviço'
+
         case 'saleValue':
             return 'Valor Venda'
-            
+
         case 'purchasePrice':
             return 'Valor Compra'
-            
+
         default:
             break;
     }
-    
+
 }
 
 const NumberFieldCustom = ({ name }) => {
@@ -45,8 +45,8 @@ const NumberFieldCustom = ({ name }) => {
 };
 
 const PriceInput = props => {
-    
-    const {source, resource, ...rest} = props;
+
+    const { source, resource, ...rest } = props;
 
     return (
         <span>

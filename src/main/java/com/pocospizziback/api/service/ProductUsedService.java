@@ -9,6 +9,9 @@ import com.pocospizziback.api.repository.ProductUsedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ProductUsedService {
 
@@ -38,6 +41,22 @@ public class ProductUsedService {
         return this.repository.findById(id).orElseThrow(
                 () -> new ServiceException(Messages.service_produto_not_found));
     }
+
+    public List<ProductUsed> updateList(List<ProductUsedReqDTO> productUsedReqDTOList){
+
+        List<ProductUsed> productUsedList = new ArrayList<>();
+
+        if (productUsedReqDTOList != null && productUsedReqDTOList.isEmpty() == false) {
+
+            productUsedReqDTOList.forEach(productUsedReqDTO -> {
+                productUsedList.add(this.update(productUsedReqDTO));
+            });
+
+        }
+
+        return productUsedList;
+    }
+
 
     public ProductUsed update(ProductUsedReqDTO dto) {
 

@@ -111,7 +111,7 @@ ptbrMessages.resources = {
     },
   },
 
-  perforations : {
+  perforations: {
     empty: ptbrMessages.page.empty,
     invite: ptbrMessages.page.invite,
     name: 'Perfuração |||| Perfurações',

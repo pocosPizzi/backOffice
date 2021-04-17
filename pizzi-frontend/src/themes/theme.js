@@ -14,8 +14,8 @@ const theme = createMuiTheme({
   },
   overrides: {
 
-    MuiButtonBase:{
-      root:{
+    MuiButtonBase: {
+      root: {
         justifyContent: 'end !important',
         padding: '5px !important',
         marginLeft: '5px !important'
