@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  Box,
-  Grid,
-  makeStyles,
-  Typography,
-  Toolbar
-} from '@material-ui/core';
-import CategoryOutlinedIcon from '@material-ui/icons/CategoryOutlined';
+import { Box, Grid, makeStyles, Typography, Toolbar } from '@material-ui/core';
+import BallotOutlinedIcon from '@material-ui/icons/BallotOutlined';
 import {
   Create,
   Datagrid,
@@ -15,37 +9,24 @@ import {
   EditButton,
   FormWithRedirect,
   List,
-  ListButton,
   required,
   SaveButton,
   TextField,
   TextInput,
-  TopToolbar,
 } from 'react-admin';
 import { ListFilterWithDeleteds } from '../components/ListFilter';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import FormActions from '../components/FormActions';
 
 const useStyles = makeStyles(theme => ({
-
-  typography: {
-    backgroundColor: 'primary',
-    color: "#fff",
-    fontWeight: 'bolder',
-    fontSize: '16px'
-  },
-
   row: {
     backgroundColor: '#124999',
     color: '#fff',
     fontWeight: 'bolder',
     fontSize: '16px',
   },
-})
-
-);
+}));
 
 export const CategoryList = props => {
-
   const classes = useStyles();
 
   return (
@@ -59,14 +40,10 @@ export const CategoryList = props => {
         <TextField source="id" />
         <TextField source="name" />
         <TextField source="createdBy" />
-        <EditButton
-          variant="outlined"
-          color="primary"
-        >
-        </EditButton>
+        <EditButton variant="outlined" color="primary" />
       </Datagrid>
     </List>
-  )
+  );
 };
 
 const CategoryForm = props => {
@@ -79,13 +56,16 @@ const CategoryForm = props => {
           <Typography
             variant="h6"
             align="left"
-            gutterBottom={true}
-            style={{ backgroundColor: '#124999', color: '#fff', padding: '5px' }}
+            gutterBottom
+            style={{
+              backgroundColor: '#124999',
+              color: '#fff',
+              padding: '5px',
+            }}
           >
             <Box fontWeight="fontWeightBold" textAlign="left" m={0}>
               Categoria de Produtos
             </Box>
-
           </Typography>
           <Grid container>
             <Grid item xs={3}>
@@ -103,7 +83,7 @@ const CategoryForm = props => {
                   saving={formProps.saving}
                   handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
                 />
-                {props.redirect === 'list' &&
+                {props.redirect === 'list' && (
                   <DeleteButton
                     style={{ marginLeft: '30px' }}
                     record={formProps.record}
@@ -111,7 +91,7 @@ const CategoryForm = props => {
                     basePath={formProps.basePath}
                     undoable={false}
                   />
-                }
+                )}
               </div>
             </Box>
           </Toolbar>
@@ -135,15 +115,9 @@ export const CategoryCreate = props => (
   </Create>
 );
 
-const FormActions = ({ basePath }) => (
-  <TopToolbar>
-    <ListButton icon={<ChevronLeft />} label="Voltar" basePath={basePath} />
-  </TopToolbar>
-);
-
 export default {
   create: CategoryCreate,
   edit: CategoryEdit,
   list: CategoryList,
-  icon: CategoryOutlinedIcon,
+  icon: BallotOutlinedIcon,
 };

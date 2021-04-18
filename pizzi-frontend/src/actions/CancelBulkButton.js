@@ -80,7 +80,7 @@ const CancelBulkButton = ({ selectedIds, resource }) => {
         onClick={handleClick}
         variant="outlined"
         style={{ color: '#a94442', borderColor: '#a94442' }}
-      ></Button>
+      />
       {/* <Confirm
         isOpen={open}
         loading={loading}

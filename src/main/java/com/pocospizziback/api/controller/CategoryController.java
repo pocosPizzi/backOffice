@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@PreAuthorize("hasAuthority('ADMIN')")
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
@@ -29,6 +28,7 @@ public class CategoryController {
 
     @GetMapping("/choice")
     public List<CategoryChoiceResDTO> findAllChoiceCategory(){
+
         return this.service.findAllChoice();
     }
 

@@ -4,55 +4,60 @@ import { useField } from 'react-final-form';
 import InputPrice from './InputPrice';
 
 function defineLabel(name) {
+  switch (name) {
+    case 'valueService':
+      return 'Valor do Serviço';
 
-    switch (name) {
-        case 'valueService':
-            return 'Valor do Serviço'
+    case 'saleValue':
+      return 'Valor Venda';
 
-        case 'saleValue':
-            return 'Valor Venda'
+    case 'purchasePrice':
+      return 'Valor Compra';
 
-        case 'purchasePrice':
-            return 'Valor Compra'
+    case 'value':
+      return 'Valor';
 
-        default:
-            break;
-    }
-
+    default:
+      break;
+  }
 }
 
 const NumberFieldCustom = ({ name }) => {
+  const { value } = useField(name).input;
 
-    const value = useField(name)['input']['value'];
+  const {
+    input: { onChange },
+    meta: { touched, error },
+  } = useField(name);
 
-    const {
-        input: { onChange },
-        meta: { touched, error }
-    } = useField(name);
+  const label = defineLabel(name);
 
-    const label = defineLabel(name);
-
-    return (
-        <InputPrice
-            name={name}
-            label={label}
-            onChange={onChange}
-            value={value}
-            error={!!(touched && error)}
-            helperText={touched && error}
-        />
-    );
+  return (
+    <InputPrice
+      name={name}
+      label={label}
+      onChange={onChange}
+      value={value}
+      error={!!(touched && error)}
+      helperText={touched && error}
+    />
+  );
 };
 
 const PriceInput = props => {
+  const { source, resource, ...rest } = props;
 
-    const { source, resource, ...rest } = props;
-
-    return (
-        <span>
-            <NumberFieldCustom resource={resource} source={source} name={props.name} validate={required()} {...rest} />
-        </span>
-    );
+  return (
+    <span>
+      <NumberFieldCustom
+        resource={resource}
+        source={source}
+        name={props.name}
+        validate={required()}
+        {...rest}
+      />
+    </span>
+  );
 };
 
 export default PriceInput;

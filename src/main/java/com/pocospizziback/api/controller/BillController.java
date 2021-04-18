@@ -2,41 +2,41 @@ package com.pocospizziback.api.controller;
 
 import com.pocospizziback.api.bases.PageReq;
 import com.pocospizziback.api.bases.PageRes;
-import com.pocospizziback.api.dto.req.PerforationReqDTO;
-import com.pocospizziback.api.dto.res.PerforationResDTO;
-import com.pocospizziback.api.service.PerforationService;
+import com.pocospizziback.api.dto.req.BillReqDTO;
+import com.pocospizziback.api.dto.res.BillResDTO;
+import com.pocospizziback.api.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/perforations")
-public class PerforationController {
+@RequestMapping("/bills")
+public class BillController {
 
     @Autowired
-    private PerforationService service;
+    private BillService service;
 
     @PostMapping
-    public PerforationResDTO store(@Valid @RequestBody PerforationReqDTO dto) {
+    public BillResDTO store(@Valid @RequestBody BillReqDTO dto) {
 
         return this.service.save(dto);
     }
 
     @GetMapping
-    public PageRes<PerforationResDTO> index(PageReq query) {
+    public PageRes<BillResDTO> index(PageReq query) {
 
         return this.service.findAll(query);
     }
 
     @GetMapping("/{id}")
-    public PerforationResDTO show(@PathVariable("id") Long id) {
+    public BillResDTO show(@PathVariable("id") Long id) {
 
         return this.service.findByIdDTO(id);
     }
 
     @PutMapping("/{id}")
-    public PerforationResDTO update(@PathVariable("id") Long id, @Valid @RequestBody PerforationReqDTO dto) {
+    public BillResDTO update(@PathVariable("id") Long id, @Valid @RequestBody BillReqDTO dto) {
 
         return this.service.update(id, dto);
     }
@@ -46,5 +46,4 @@ public class PerforationController {
 
         this.service.logicalExclusion(id);
     }
-
 }

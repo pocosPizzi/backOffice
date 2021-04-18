@@ -70,7 +70,7 @@ export default (type, params) => {
     return roles ? Promise.resolve(JSON.parse(roles)) : Promise.reject();
   }
   if (type === AUTH_ERROR) {
-    const status = params.status;
+    const { status } = params;
     if (status === 401) {
       localStorage.removeItem('token');
       return Promise.reject();

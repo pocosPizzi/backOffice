@@ -7,31 +7,42 @@ import {
 import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
+
 const enums = {
-  roles: [
-    'ADMIN',
-  ],
+  roles: ['ADMIN', 'CUSTOMER'],
 
-  typeTotalStock: [
-    'UNITY',
-    'METERS'
-  ],
+  typeTotalStock: ['UNITY', 'METERS'],
 
-  sealDisplacement: [
-    true,
-    false
-  ]
+  sealDisplacement: [true, false],
+
+  typeBill: ['PAY', 'RECEIVE'],
+
+  typeBillPay: ['PAY'],
+
+  typeBillReceive: ['RECEIVE'],
+
+  statusBill: ['IN_LATE', 'RECEIVABLE', 'PAYABLE', 'PAID']
 };
 const enumsStyles = {
   roles: [
     { backgroundColor: '#C0C0C0', color: '#000' },
-  ],
-
-  typeTotalStock: [
-    { backgroundColor: '#C0C0C0', color: '#000' },
     { backgroundColor: '#C0C0C0', color: '#000' }
   ],
+  typeTotalStock: [
+    { backgroundColor: '#C0C0C0', color: '#000' },
+    { backgroundColor: '#C0C0C0', color: '#000' },
+  ],
+  typeBill: [
+    { backgroundColor: '#C0C0C0', color: '#FF1A06' },
+    { backgroundColor: '#C0C0C0', color: '#0687FF' },
+  ],
 
+  statusBill: [
+    {backgroundColor: '#E46460', color: '#000'},
+    {backgroundColor: '#FFFF42', color: '#000'},
+    {backgroundColor: '#FFFF42', color: '#000'},
+    {backgroundColor: '#66CDAA', color: '#000'}
+  ]
 };
 
 const choices = source => {
@@ -96,12 +107,14 @@ const EnumRadioField = ({ source, record = {}, type }) => (
   </>
 );
 
-const EnumRadioInput = ({ resource, source, validate, type }) => (
+const EnumRadioInput = ({ resource, source, validate, type,  defaultValue, disabled}) => (
   <StyledRadioButtonGroupInput
     label={`resources.${resource}.fields.${source}`}
     source={source}
     choices={choices(!type ? source : type)}
     validate={validate}
+    defaultValue={defaultValue}
+    disabled={disabled}
   />
 );
 export {

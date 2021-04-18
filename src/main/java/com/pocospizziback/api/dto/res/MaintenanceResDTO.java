@@ -54,19 +54,11 @@ public class MaintenanceResDTO {
 
     private String description;
 
-    private TypeService typeService;
-
-    private Integer perforatedMeters;
-
     private String observation;
 
     private Double valueService;
 
-    private Integer mechanicalGeoCoatingMeters;
-
-    private Boolean sealDisplacement;
-
-    private LocalDate datePerforation;
+    private LocalDate dateMaintenance;
 
     private List<ProductUsedResDTO> productTempList;
 
@@ -92,7 +84,7 @@ public class MaintenanceResDTO {
         this.description = entity.getDescription();
         this.observation = entity.getObservation();
         this.valueService = entity.getValueService();
-        this.datePerforation = entity.getDateMaintenance();
+        this.dateMaintenance = entity.getDateMaintenance();
         this.productTempList = entity.getProductsUsed() != null ? entity.getProductsUsed().stream().map(ProductUsedResDTO::of).collect(Collectors.toList()) : null;
     }
 

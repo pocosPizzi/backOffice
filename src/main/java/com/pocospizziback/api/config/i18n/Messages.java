@@ -13,5 +13,7 @@ public enum Messages {
 	product_is_null,
 	service_produto_not_found,
 	job_provided_not_found,
+	bill_not_found,
+	user_name_in_use,
 
 }

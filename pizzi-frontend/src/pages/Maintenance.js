@@ -28,7 +28,6 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { ListFilterWithDeleteds } from '../components/ListFilter';
 import PriceInput from '../components/PriceInput';
-import { EnumRadioInput } from '../components/Enums';
 import LocalDateField from '../components/LocalDateField';
 import dataProvider from '../providers/dataProvider';
 import FormActions from '../components/FormActions';
@@ -43,14 +42,19 @@ const useStyles = makeStyles(theme => ({
 
   root: {
     width: '100%',
-  }
-}));
+  },
+  button: {
+    marginTop: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+})
+);
 
 function getSteps() {
   return [
     'Dados do Cliente',
     'Dados de Endereço',
-    'Dados do Poço',
+    'Dados da Manutenção',
     'Materiais usado',
     'Valores',
   ];
@@ -63,42 +67,42 @@ function getStepContent(step, choices, disabled) {
         <Grid container spacing={6} alignItems="center" justify="center">
           <Grid item xs={3}>
             <TextInput
-              resource="perforations"
+              resource="maintenance"
               source="nameClient"
               validate={required()}
             />
           </Grid>
           <Grid item xs={3}>
             <TextInput
-              resource="perforations"
+              resource="maintenance"
               source="cpf"
               validate={required()}
             />
           </Grid>
           <Grid item xs={3}>
             <TextInput
-              resource="perforations"
+              resource="maintenance"
               source="rg"
               validate={required()}
             />
           </Grid>
           <Grid item xs={3}>
             <DateInput
-              resource="perforations"
+              resource="maintenance"
               source="birthday"
               validate={required()}
             />
           </Grid>
           <Grid item xs={3}>
             <TextInput
-              resource="perforations"
+              resource="maintenance"
               source="phone"
               validate={required()}
             />
           </Grid>
           <Grid item xs={3}>
             <TextInput
-              resource="perforations"
+              resource="maintenance"
               source="email"
               validate={required()}
             />
@@ -110,35 +114,35 @@ function getStepContent(step, choices, disabled) {
         <Grid container spacing={6} alignItems="center" justify="center">
           <Grid item xs={3}>
             <TextInput
-              resource="perforations"
+              resource="maintenance"
               source="uf"
               validate={required()}
             />
           </Grid>
           <Grid item xs={3}>
             <TextInput
-              resource="perforations"
+              resource="maintenance"
               source="city"
               validate={required()}
             />
           </Grid>
           <Grid item xs={3}>
             <TextInput
-              resource="perforations"
+              resource="maintenance"
               source="district"
               validate={required()}
             />
           </Grid>
           <Grid item xs={3}>
             <TextInput
-              resource="perforations"
+              resource="maintenance"
               source="street"
               validate={required()}
             />
           </Grid>
           <Grid item xs={3}>
             <NumberInput
-              resource="perforations"
+              resource="maintenance"
               source="numberHouse"
               validate={required()}
             />
@@ -149,51 +153,36 @@ function getStepContent(step, choices, disabled) {
       return (
         <Grid container spacing={6} alignItems="center" justify="center">
           <Grid item xs={3}>
-            <NumberInput
-              resource="perforations"
-              source="mechanicalGeoCoatingMeters"
-              validate={required()}
-            />
           </Grid>
           <Grid item xs={3}>
             <TextInput
-              resource="perforations"
+              resource="maintenance"
               source="description"
               validate={required()}
             />
           </Grid>
           <Grid item xs={3}>
             <DateInput
-              resource="perforations"
-              source="datePerforation"
-              validate={required()}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <NumberInput
-              resource="perforations"
-              source="perforatedMeters"
+              resource="maintenance"
+              source="dateMaintenance"
               validate={required()}
             />
           </Grid>
           <Grid item xs={3}>
             <TextInput
-              resource="perforations"
+              resource="maintenance"
               source="observation"
               validate={required()}
             />
-          </Grid>
-          <Grid item xs={3}>
-            <EnumRadioInput resource="perforations" source="sealDisplacement" />
           </Grid>
         </Grid>
       );
     case 3:
       return (
         <Grid container spacing={1} alignItems="center" justify="center">
-          <ArrayInput resource="perforations" source="productTempList">
+          <ArrayInput resource="maintenance" source="productTempList">
             <SimpleFormIterator style={{ width: '40%' }}>
-              <SelectInput source="productId" choices={choices} />
+              <SelectInput source="productId" choices={choices} limitChoicesToValue={true} />
               <NumberInput source="totalUsed" />
             </SimpleFormIterator>
           </ArrayInput>
@@ -204,8 +193,8 @@ function getStepContent(step, choices, disabled) {
         <Grid container spacing={6} alignItems="center" justify="center">
           <Grid item xs={3}>
             <PriceInput
-              resource="perforations"
-              placeholder="perforations"
+              resource="maintenance"
+              placeholder="maintenance"
               source="valueService"
               name="valueService"
               validate={required()}
@@ -218,7 +207,7 @@ function getStepContent(step, choices, disabled) {
   }
 }
 
-export const PerforationList = props => {
+export const MaintenanceList = props => {
   const classes = useStyles();
 
   return (
@@ -231,10 +220,9 @@ export const PerforationList = props => {
       <Datagrid classes={{ headerCell: classes.row }}>
         <TextField source="nameClient" />
         <TextField source="email" textAlign="center" />
-        <TextField source="perforatedMeters" textAlign="center" />
-        <LocalDateField source="datePerforation" textAlign="center" />
+        <LocalDateField source="dateMaintenance" textAlign="center" />
         <NumberField
-          resource="perforations"
+          resource="maintenance"
           source="valueService"
           textAlign="center"
           options={{
@@ -248,7 +236,7 @@ export const PerforationList = props => {
   );
 };
 
-const PerforationForm = props => {
+const MaintenanceForm = props => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [choice, setChoice] = useState();
@@ -289,7 +277,7 @@ const PerforationForm = props => {
             style={{ backgroundColor: '#124999', color: '#fff' }}
           >
             <Box fontWeight="fontWeightBold" textAlign="left" m={1}>
-              Perfuração
+              Manutenção
             </Box>
           </Typography>
           <div className={classes.root}>
@@ -361,23 +349,23 @@ const PerforationForm = props => {
   );
 };
 
-export const PerforationEdit = props => {
+export const MaintenanceEdit = props => {
   return (
     <Edit undoable={false} actions={<FormActions />} {...props}>
-      <PerforationForm {...props} />
+      <MaintenanceForm {...props} />
     </Edit>
   );
 };
 
-export const PerforationCreate = props => (
+export const MaintenanceCreate = props => (
   <Create undoable="false" actions={<FormActions />} {...props}>
-    <PerforationForm {...props} />
+    <MaintenanceForm {...props} />
   </Create>
 );
 
 export default {
-  create: PerforationCreate,
-  edit: PerforationEdit,
-  list: PerforationList,
+  create: MaintenanceCreate,
+  edit: MaintenanceEdit,
+  list: MaintenanceList,
   icon: OpacityOutlinedIcon,
 };

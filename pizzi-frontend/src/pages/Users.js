@@ -1,12 +1,7 @@
 import React from 'react';
+import { Box, Grid, makeStyles, Typography, Toolbar } from '@material-ui/core';
+import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined';
 import {
-  Box,
-  Grid,
-  makeStyles,
-  Typography,
-  Toolbar
-} from '@material-ui/core';
-import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined'; import {
   Create,
   Datagrid,
   DeleteButton,
@@ -14,38 +9,25 @@ import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined'
   EditButton,
   FormWithRedirect,
   List,
-  ListButton,
   required,
   SaveButton,
   TextField,
   TextInput,
-  TopToolbar,
 } from 'react-admin';
 import { EnumCheckboxInput, EnumField } from '../components/Enums';
 import { ListFilterWithDeleteds } from '../components/ListFilter';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import FormActions from '../components/FormActions';
 
 const useStyles = makeStyles(theme => ({
-
-  typography: {
-    backgroundColor: 'primary',
-    color: "#fff",
-    fontWeight: 'bolder',
-    fontSize: '16px'
-  },
-
   row: {
     backgroundColor: '#124999',
     color: '#fff',
     fontWeight: 'bolder',
     fontSize: '16px',
   },
-})
-
-);
+}));
 
 export const UserList = props => {
-
   const classes = useStyles();
 
   return (
@@ -59,20 +41,13 @@ export const UserList = props => {
         <TextField source="name" />
         <TextField source="username" />
         <EnumField source="roles" />
-        <EditButton
-          variant="outlined"
-          color="primary"
-        >
-        </EditButton>
+        <EditButton variant="outlined" color="primary" />
       </Datagrid>
     </List>
-  )
-
-
+  );
 };
 
 const UserForm = props => {
-
   return (
     <FormWithRedirect
       {...props}
@@ -82,18 +57,18 @@ const UserForm = props => {
           <Typography
             variant="h6"
             align="left"
-            gutterBottom={true}
-            style={{ backgroundColor: '#124999', color: '#fff', padding: '5px' }}
+            gutterBottom
+            style={{
+              backgroundColor: '#124999',
+              color: '#fff',
+              padding: '5px',
+            }}
           >
             <Box fontWeight="fontWeightBold" textAlign="left" m={0}>
               Usuário
             </Box>
-
           </Typography>
-          <Grid container
-            spacing={4}
-            alignItems="center"
-            justify="center">
+          <Grid container spacing={4} alignItems="center" justify="center">
             <Grid item xs={3}>
               <TextInput
                 resource="users"
@@ -118,7 +93,7 @@ const UserForm = props => {
                   saving={formProps.saving}
                   handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
                 />
-                {props.redirect === 'list' &&
+                {props.redirect === 'list' && (
                   <DeleteButton
                     style={{ marginLeft: '30px' }}
                     record={formProps.record}
@@ -126,7 +101,7 @@ const UserForm = props => {
                     basePath={formProps.basePath}
                     undoable={false}
                   />
-                }
+                )}
               </div>
             </Box>
           </Toolbar>
@@ -148,12 +123,6 @@ export const UserCreate = props => (
   <Create undoable="false" actions={<FormActions />} {...props}>
     <UserForm {...props} />
   </Create>
-);
-
-const FormActions = ({ basePath }) => (
-  <TopToolbar>
-    <ListButton icon={<ChevronLeft />} label="Voltar" basePath={basePath} />
-  </TopToolbar>
 );
 
 export default {

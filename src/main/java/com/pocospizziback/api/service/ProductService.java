@@ -56,7 +56,7 @@ public class ProductService {
     public PageRes<ProductResDTO> findAll(PageReq query) {
 
         Specification<Product> deleted = SearchUtils.specByDeleted(query.isDeleted());
-        Specification<Product> filters = SearchUtils.specByFilter(query.getFilter(), "name", "id");
+        Specification<Product> filters = SearchUtils.specByFilter(query.getFilter(), "name", "id", "totalStock", "typeTotalStock", "barCode");
         Page<Product> page = this.repository.findAll(deleted.and(filters), query.toPageRequest());
 
         return new PageRes<>(page.getContent().stream().map(ProductResDTO::of).collect(Collectors.toList()),

@@ -10,11 +10,15 @@ import com.pocospizziback.api.model.Maintenance;
 import com.pocospizziback.api.model.Product;
 import com.pocospizziback.api.model.ProductUsed;
 import com.pocospizziback.api.repository.MaintenanceRepository;
+import com.pocospizziback.api.util.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MaintenanceService {
@@ -46,7 +50,15 @@ public class MaintenanceService {
     }
 
     public PageRes<MaintenanceResDTO> findAll(PageReq query) {
-        return null;
+
+        Specification<Maintenance> deleted = SearchUtils.specByDeleted(query.isDeleted());
+        Specification<Maintenance> filters = SearchUtils.specByFilter(query.getFilter(), "nameClient", "id",
+                "cpf", "rg", "birthday", "phone", "email", "numberHouse", "street", "district", "city", "uf", "description",
+                "observation", "valueService", "dateMaintenance");
+        Page<Maintenance> page = this.repository.findAll(deleted.and(filters), query.toPageRequest());
+
+        return new PageRes<>(page.getContent().stream().map(MaintenanceResDTO::of).collect(Collectors.toList()),
+                page.getTotalElements(), page.getTotalPages());
     }
 
     public MaintenanceResDTO findByIdDTO(Long id) {

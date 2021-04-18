@@ -14,17 +14,26 @@ ptbrMessages.page = {
 ptbrMessages.enums = {
   roles: {
     ADMIN: 'Admin',
+    CUSTOMER: 'Funcionário'
   },
 
   typeTotalStock: {
     UNITY: 'Un',
-    METERS: 'Mt'
+    METERS: 'Mt',
   },
 
   sealDisplacement: {
     true: 'Sim',
-    false: 'Não'
-  }
+    false: 'Não',
+  },
+
+  typeBill: { PAY: 'Á Pagar', RECEIVE: 'Á receber' },
+
+  typeBillPay: { PAY: 'Á Pagar'},
+
+  typeBillReceive: {RECEIVE: 'Á receber' },
+
+  statusBill: {IN_LATE: 'Atrasada', RECEIVABLE: 'Aguardando receber', PAYABLE: 'Aguardando pagar', PAID: 'Paga'}
 };
 
 ptbrMessages.forms = {
@@ -34,7 +43,7 @@ ptbrMessages.forms = {
 ptbrMessages.ra.page.create = 'Novo(a) %{name}';
 ptbrMessages.ra.page.edit = '%{name}';
 ptbrMessages.ra.page.show = '%{name}';
-ptbrMessages.ra.page.list = 'Lista de %{name}'
+ptbrMessages.ra.page.list = 'Lista de %{name}';
 
 ptbrMessages.ra.action.create = 'Novo(a)';
 
@@ -107,7 +116,7 @@ ptbrMessages.resources = {
       saleValue: 'Valor de Venda',
       totalStock: 'Total em estoque',
       typeTotalStock: 'Tipo de medida',
-      categoryId: 'Categoria'
+      categoryId: 'Categoria',
     },
   },
 
@@ -121,9 +130,9 @@ ptbrMessages.resources = {
       nameClient: 'Nome do Cliente',
       cpf: 'CPF',
       rg: 'RG',
-      birthday: 'Aniversário',
+      birthday: 'Data de nascimento',
       phone: 'Telefone',
-      email: 'email',
+      email: 'Email',
       uf: 'Estado',
       city: 'Cidade',
       district: 'Bairro',
@@ -138,10 +147,55 @@ ptbrMessages.resources = {
       mechanicalGeoCoatingMeters: 'Metros de Revestimento Geo Mecânico ',
       productTempList: 'Lista de Materiais',
       productId: 'Material',
-      totalUsed: 'Total Usado'
-
+      totalUsed: 'Total Usado',
     },
-  }
+  },
+  'maintenance': {
+    empty: ptbrMessages.page.empty,
+    invite: ptbrMessages.page.invite,
+    name: 'Manutenção |||| Manutenções',
+    fields: {
+      updatedAt: 'Atualizado em',
+      updatedBy: 'Atualizado por',
+      nameClient: 'Nome do Cliente',
+      cpf: 'CPF',
+      rg: 'RG',
+      birthday: 'Data de nascimento',
+      phone: 'Telefone',
+      email: 'Email',
+      uf: 'Estado',
+      city: 'Cidade',
+      district: 'Bairro',
+      street: 'Rua',
+      numberHouse: 'Número',
+      description: 'Descrição',
+      observation: 'Observação',
+      valueService: 'Valor da Manutenção',
+      dateMaintenance: 'Data da Manutenção',
+      productTempList: 'Lista de Materiais',
+      productId: 'Material',
+      totalUsed: 'Total Usado',
+    },
+  },
+  'bills': {
+    empty: ptbrMessages.page.empty,
+    invite: ptbrMessages.page.invite,
+    name: 'Fluxo de caixa |||| Fluxo de Caixa',
+    fields: {
+      updatedAt: 'Atualizado em',
+      updatedBy: 'Atualizado por',
+      nameClient: 'Nome do Cliente',
+      typeBill: 'Tipo de conta',
+      dueDate: 'Vencimento',
+      statusBill: 'Status',
+      isPaid: 'Paga',
+      beneficiary: 'Beneficiário',
+      debtor: 'Devedor',
+      description: 'Descrição',
+      typeBillPay: 'Tipo de Conta',
+      typeBillReceive: 'Tipo de Conta'
+    },
+  },
 };
 
 export default ptbrMessages;

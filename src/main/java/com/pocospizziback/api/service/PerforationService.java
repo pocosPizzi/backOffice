@@ -52,7 +52,9 @@ public class PerforationService {
     public PageRes<PerforationResDTO> findAll(PageReq query) {
 
         Specification<Perforation> deleted = SearchUtils.specByDeleted(query.isDeleted());
-        Specification<Perforation> filters = SearchUtils.specByFilter(query.getFilter(), "name", "id");
+        Specification<Perforation> filters = SearchUtils.specByFilter(query.getFilter(), "nameClient", "id",
+                "cpf", "rg", "birthday", "phone", "email", "numberHouse", "street", "district", "city", "uf", "description",
+                "observation", "valueService", "datePerforation", "perforatedMeters", "mechanicalGeoCoatingMeters", "sealDisplacement");
         Page<Perforation> page = this.repository.findAll(deleted.and(filters), query.toPageRequest());
 
         return new PageRes<>(page.getContent().stream().map(PerforationResDTO::of).collect(Collectors.toList()),

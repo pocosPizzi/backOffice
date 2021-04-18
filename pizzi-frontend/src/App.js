@@ -6,20 +6,31 @@ import LoginPage from './pages/LoginPage';
 import NotFound from './pages/NotFound';
 import Users from './pages/Users';
 import Category from './pages/Category';
+import Bill from './pages/Bill';
 import Products from './pages/Products';
 import Perforation from './pages/Perforation';
+import Maintenace from './pages/Maintenance';
 import authProvider from './providers/authProvider';
 import dataProvider from './providers/dataProvider';
 import './styles/App.css';
 import theme from './themes/theme';
 
 const fetchResources = permissions => {
-  let arr = [];
+  const arr = [];
   if (permissions.includes(Roles.ADMIN)) {
     arr.push(<Resource name="users" {...Users} />);
+    arr.push(<Resource name="bills" {...Bill} />);
+    arr.push(<Resource name="perforations" {...Perforation} />);
+    arr.push(<Resource name="maintenance" {...Maintenace} />);
     arr.push(<Resource name="products" {...Products} />);
     arr.push(<Resource name="categories" {...Category} />);
-    arr.push(<Resource name='perforations' {...Perforation} />)
+  }
+  if (permissions.includes(Roles.CUSTOMER)) {
+    arr.push(<Resource name="bills" {...Bill} />);
+    arr.push(<Resource name="perforations" {...Perforation} />);
+    arr.push(<Resource name="maintenance" {...Maintenace} />);
+    arr.push(<Resource name="products" {...Products} />);
+    arr.push(<Resource name="categories" {...Category} />);
   }
   return arr;
 };

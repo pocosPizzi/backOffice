@@ -10,7 +10,7 @@ function NumberFormatCustom(props) {
     <NumberFormat
       {...other}
       getInputRef={inputRef}
-      onValueChange={(values) => {
+      onValueChange={values => {
         onChange({
           target: {
             name: props.name,
@@ -18,10 +18,10 @@ function NumberFormatCustom(props) {
           },
         });
       }}
-      decimalSeparator="."
-      thousandSeparator=","
+      decimalSeparator=","
+      thousandSeparator="."
       isNumericString
-      prefix="R$"
+      prefix="R$ "
     />
   );
 }
@@ -32,10 +32,15 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default function FormattedInputsPrice({ name, label, onChange, error, helperText, value }) {
-
+export default function FormattedInputsPrice({
+  name,
+  label,
+  onChange,
+  error,
+  helperText,
+  value,
+}) {
   return (
-
     <TextField
       label={label}
       onChange={onChange}
@@ -47,7 +52,7 @@ export default function FormattedInputsPrice({ name, label, onChange, error, hel
       InputProps={{
         inputComponent: NumberFormatCustom,
       }}
+      InputLabelProps={{ shrink: true }}
     />
-
   );
 }

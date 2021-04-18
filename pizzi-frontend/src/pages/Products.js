@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Grid,
-  makeStyles,
-  Typography,
-  Toolbar
-} from '@material-ui/core';
+import { Box, Grid, makeStyles, Typography, Toolbar } from '@material-ui/core';
 import BallotOutlinedIcon from '@material-ui/icons/BallotOutlined';
 import {
   Create,
@@ -15,41 +9,28 @@ import {
   EditButton,
   FormWithRedirect,
   List,
-  ListButton,
   NumberInput,
   required,
   SaveButton,
   SelectInput,
   TextField,
   TextInput,
-  TopToolbar,
 } from 'react-admin';
 import { ListFilterWithDeleteds } from '../components/ListFilter';
 import { EnumRadioField, EnumRadioInput } from '../components/Enums';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import springProvider from '../providers/dataProvider';
-import LocalDateTimeField from '../components/LocalDateTimeField';
+import FormActions from '../components/FormActions';
+
 const useStyles = makeStyles(theme => ({
-
-  typography: {
-    backgroundColor: 'primary',
-    color: "#fff",
-    fontWeight: 'bolder',
-    fontSize: '16px'
-  },
-
   row: {
     backgroundColor: '#124999',
     color: '#fff',
     fontWeight: 'bolder',
     fontSize: '16px',
   },
-})
-
-);
+}));
 
 export const ProductList = props => {
-
   const classes = useStyles();
 
   return (
@@ -64,29 +45,22 @@ export const ProductList = props => {
         <TextField source="barCode" />
         <TextField source="totalStock" />
         <EnumRadioField source="typeTotalStock" />
-        <LocalDateTimeField resource="products" source="uptededBy" />
-        <EditButton
-          variant="outlined"
-          color="primary"
-        >
-        </EditButton>
+        <EditButton variant="outlined" color="primary" />
       </Datagrid>
     </List>
-  )
-
+  );
 };
 
 const ProductForm = props => {
-
-  const [response, setRespose] = useState([{ id: "0", name: "Carregando......" }])
+  const [response, setRespose] = useState([
+    { id: '0', name: 'Carregando......' },
+  ]);
 
   const getChoice = () => {
-
     springProvider('GET', 'categories/choice').then(res => {
       setRespose(res.data);
-
     });
-  }
+  };
 
   useEffect(() => {
     getChoice();
@@ -101,20 +75,24 @@ const ProductForm = props => {
           <Typography
             variant="h6"
             align="left"
-            style={{ backgroundColor: '#124999', color: '#fff', padding: '5px' }}
+            style={{
+              backgroundColor: '#124999',
+              color: '#fff',
+              padding: '5px',
+            }}
           >
             <Box fontWeight="fontWeightBold" textAlign="left" m={0}>
               Produto
             </Box>
-
           </Typography>
-          <Grid container
+          <Grid
+            container
             spacing={3}
             alignItems="center"
             direction="row"
-            justify="center">
+            justify="center"
+          >
             <Grid item xs={4}>
-
               <TextInput
                 resource="products"
                 source="name"
@@ -133,16 +111,12 @@ const ProductForm = props => {
               />
             </Grid>
             <Grid item xs={3}>
-
               <NumberInput
                 resource="products"
                 source="totalStock"
                 validate={required()}
               />
-              <EnumRadioInput
-                resource="products"
-                source="typeTotalStock"
-              />
+              <EnumRadioInput resource="products" source="typeTotalStock" />
             </Grid>
           </Grid>
           <Toolbar disableGutters>
@@ -152,7 +126,7 @@ const ProductForm = props => {
                   saving={formProps.saving}
                   handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
                 />
-                {props.redirect === 'list' &&
+                {props.redirect === 'list' && (
                   <DeleteButton
                     style={{ marginLeft: '30px' }}
                     record={formProps.record}
@@ -160,7 +134,7 @@ const ProductForm = props => {
                     basePath={formProps.basePath}
                     undoable={false}
                   />
-                }
+                )}
               </div>
             </Box>
           </Toolbar>
@@ -182,12 +156,6 @@ export const ProductCreate = props => (
   <Create undoable="false" actions={<FormActions />} {...props}>
     <ProductForm {...props} />
   </Create>
-);
-
-const FormActions = ({ basePath }) => (
-  <TopToolbar>
-    <ListButton icon={<ChevronLeft />} label="Voltar" basePath={basePath} />
-  </TopToolbar>
 );
 
 export default {

@@ -27,7 +27,7 @@ public class UserService {
     public PageRes<UserResDTO> findAll(PageReq query) {
 
         Specification<User> deleted = SearchUtils.specByDeleted(query.isDeleted());
-        Specification<User> filters = SearchUtils.specByFilter(query.getFilter(), "username", "id", "email", "name");
+        Specification<User> filters = SearchUtils.specByFilter(query.getFilter(), "username", "id", "name");
         Page<User> page = this.repository.findAll(deleted.and(filters), query.toPageRequest());
 
         return new PageRes<>(page.getContent().stream().map(UserResDTO::of).collect(Collectors.toList()),
@@ -41,6 +41,10 @@ public class UserService {
     }
 
     public UserResDTO save(UserReqDTO dto) {
+
+        if(this.repository.findByUsername(dto.getUsername()).isPresent()){
+            throw new ServiceException(Messages.user_name_in_use);
+        }
 
         User user = dto.toEntity(new User());
 
