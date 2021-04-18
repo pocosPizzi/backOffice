@@ -70,21 +70,25 @@ public class MaintenanceService {
     }
 
     public MaintenanceResDTO update(Long id, MaintenanceReqDTO dto) {
-        List<ProductUsed> productUsedList = this.productUsedService.updateList(dto.getProductTempList());
 
         Maintenance entity = dto.toEntity(this.findById(id));
 
         List<ProductUsed> productUsedListOld = entity.getProductsUsed();
 
+        List<ProductUsed> productUsedList = this.productUsedService.updateList(dto.getProductTempList(), productUsedListOld);
+
         productUsedListOld.forEach(oldProduct -> {
 
-            if (productUsedList.contains(oldProduct) == false) {
+            List<ProductUsed> list = productUsedList.stream().filter(productUsed -> productUsed.getId().equals(oldProduct.getId())).collect(Collectors.toList());
+
+            if (list.isEmpty() == true) {
 
                 Product product = oldProduct.getProduct();
 
                 Integer value = product.getTotalStock() + oldProduct.getTotalUsed();
 
                 this.productService.updateStockProduct(value, product.getId());
+
             }
         });
 

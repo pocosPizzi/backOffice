@@ -79,15 +79,17 @@ public class PerforationService {
 
     public PerforationResDTO update(Long id, PerforationReqDTO dto) {
 
-        List<ProductUsed> productUsedList = this.productUsedService.updateList(dto.getProductTempList());
-
         Perforation entity = dto.toEntity(this.findByIdEntity(id));
 
         List<ProductUsed> productUsedListOld = entity.getProductsUsed();
 
+        List<ProductUsed> productUsedList = this.productUsedService.updateList(dto.getProductTempList(), productUsedListOld);
+
         productUsedListOld.forEach(oldProduct -> {
 
-            if (productUsedList.contains(oldProduct) == false) {
+            List<ProductUsed> list = productUsedList.stream().filter(productUsed -> productUsed.getId().equals(oldProduct.getId())).collect(Collectors.toList());
+
+            if (list.isEmpty() == true) {
 
                 Product product = oldProduct.getProduct();
 
@@ -96,7 +98,6 @@ public class PerforationService {
                 this.productService.updateStockProduct(value, product.getId());
 
             }
-
         });
 
         entity.getProductsUsed().clear();

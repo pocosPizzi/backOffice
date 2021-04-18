@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductUsedService {
@@ -42,34 +43,40 @@ public class ProductUsedService {
                 () -> new ServiceException(Messages.service_produto_not_found));
     }
 
-    public List<ProductUsed> updateList(List<ProductUsedReqDTO> productUsedReqDTOList){
+    public List<ProductUsed> updateList(List<ProductUsedReqDTO> productUsedReqDTOList, List<ProductUsed> productUsedReqDTOListOld){
 
         List<ProductUsed> productUsedList = new ArrayList<>();
 
         if (productUsedReqDTOList != null && productUsedReqDTOList.isEmpty() == false) {
 
             productUsedReqDTOList.forEach(productUsedReqDTO -> {
-                productUsedList.add(this.update(productUsedReqDTO));
+                List<ProductUsed> productUsedList1 = productUsedReqDTOListOld
+                        .stream()
+                        .filter(productUsed -> productUsed.getId().equals(productUsedReqDTO.getId()))
+                        .collect(Collectors.toList());
+                Integer totalUsedOld = productUsedList1.size() > 0 ? productUsedList1.get(0).getTotalUsed() : null;
+                productUsedList.add(this.update(productUsedReqDTO, totalUsedOld));
             });
 
         }
-
         return productUsedList;
     }
 
 
-    public ProductUsed update(ProductUsedReqDTO dto) {
+    public ProductUsed update(ProductUsedReqDTO dto, Integer totalUsedOld) {
 
         ProductUsed entity;
-        ProductUsed entityOld = this.findById(dto.getId());
 
         if (dto.getId() == null) {
-
             entity = this.save(dto);
+        } else
+        {
+            entity = dto.toEntity(this.findById(dto.getId()));
+            Product product = entity.getProduct();
 
-        } else {
-//criar regra para fazer as modificações no stoque conforme vei as mudanças de produto
-            entity = dto.toEntity(entityOld);
+            Integer value = (product.getTotalStock() + totalUsedOld);
+
+            this.productService.updateStockProduct(value - dto.getTotalUsed(), product.getId());
         }
 
         return this.repository.save(entity);
