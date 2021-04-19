@@ -21,7 +21,7 @@
 
 		<frontend-maven-plugin.version>1.9.1</frontend-maven-plugin.version>
 		<frontend-src-dir>${project.basedir}/pizzi-frontend</frontend-src-dir>
-		<node.version>v13.8.0</node.version>
+		<node.version>v14.16.1</node.version>
 		<yarn.version>v1.22.0</yarn.version>
 	</properties>
 
