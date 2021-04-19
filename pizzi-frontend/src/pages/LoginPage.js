@@ -5,7 +5,7 @@ const MyLoginPage = () => (
   <Login
     style={{
       backgroundImage:
-        'radial-gradient(circle at 50% 14em, #929280 10%, #929292 60%, #929292 10%)',
+        'radial-gradient(circle at 50% 14em, #124999 10%, #124999 60%, #124999 70%)',
     }}
     loginForm={<LoginForm />}
   />
