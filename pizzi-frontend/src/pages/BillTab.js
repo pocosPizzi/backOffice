@@ -9,6 +9,7 @@ import { TabPanel } from '../components/TabPanels';
 import BillList from './BillList';
 import BillReceive from './BillReceive';
 import BillPay from './BillPay';
+import BillReport from './BillReport';
 
 
 const BillTab = props => {
@@ -31,21 +32,27 @@ const BillTab = props => {
 
         <div>
             <div>
-                <Tabs value={value} onChange={handleChange} variant="standard">
+                <Tabs value={value} onChange={handleChange} >
                     <Tab label="Geral" {...a11yProps(0)} />
-                    <Tab label="Contas á Receber" {...a11yProps(1)} />
-                    <Tab label="Contas á Pagar" {...a11yProps(2)} />
+                    <Tab label="Relatório" {...a11yProps(1)} />
+                    <Tab label="Contas á Receber" {...a11yProps(2)} />
+                    <Tab label="Contas á Pagar" {...a11yProps(3)} />
+
                 </Tabs>
             </div>
             <TabPanel value={value} index={0}>
                 <BillList {...props} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <BillReceive {...props}/>
+                <BillReport {...props} />
             </TabPanel>
             <TabPanel value={value} index={2}>
+                <BillReceive {...props} />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
                 <BillPay {...props} />
             </TabPanel>
+
         </div>
 
     );

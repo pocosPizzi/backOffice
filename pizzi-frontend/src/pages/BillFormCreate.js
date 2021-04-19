@@ -42,11 +42,17 @@ const BillForm = props => {
                     </Typography>
                     <Grid container spacing={4} alignItems="center" justify="center">
                         <Grid item xs={3} style={{ marginTop: '23px' }}>
-                            <TextInput
-                                resource="bills"
-                                source="beneficiary"
-                                validate={required()}
-                            />
+                            {props.typeBill === 'PAY' ?
+                                <TextInput
+                                    resource="bills"
+                                    source="beneficiary"
+                                    validate={required()}
+                                /> : 
+                                <TextInput
+                                    resource="bills"
+                                    source="debtor"
+                                    validate={required()}
+                                /> }
                         </Grid>
                         <Grid item xs={1} >
                             <PriceInput

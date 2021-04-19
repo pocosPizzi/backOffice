@@ -193,7 +193,8 @@ ptbrMessages.resources = {
       debtor: 'Devedor',
       description: 'Descrição',
       typeBillPay: 'Tipo de Conta',
-      typeBillReceive: 'Tipo de Conta'
+      typeBillReceive: 'Tipo de Conta',
+      value: 'Valor'
     },
   },
 };
