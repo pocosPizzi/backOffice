@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     Box,
     Grid,
@@ -11,14 +11,30 @@ import {
     FormWithRedirect,
     required,
     SaveButton,
+    SelectInput,
     TextInput,
 } from 'react-admin';
+import springProvider from '../providers/dataProvider';
 import PriceInput from '../components/PriceInput';
 import { EnumRadioInput } from '../components/Enums';
 
 const BillForm = props => {
 
     const typeBill = props.typeBill === 'PAY' ? 'Pagar' : 'Receber';
+
+    const [response, setRespose] = useState([
+        { id: '0', name: 'Carregando......' },
+    ]);
+
+    const getChoice = () => {
+        springProvider('GET', 'clients/choice').then(res => {
+            setRespose(res.data);
+        });
+    };
+
+    useEffect(() => {
+        getChoice();
+    }, []);
 
     return (
         <FormWithRedirect
@@ -47,20 +63,22 @@ const BillForm = props => {
                                     resource="bills"
                                     source="beneficiary"
                                     validate={required()}
-                                /> : 
-                                <TextInput
+                                /> :
+                                <SelectInput
                                     resource="bills"
-                                    source="debtor"
+                                    source="idClient"
                                     validate={required()}
-                                /> }
+                                    choices={response}
+                                />}
                         </Grid>
-                        <Grid item xs={1} >
+                        <Grid item xs={2} style={{ marginTop: '-9px' }}>
                             <PriceInput
                                 resource="bills"
                                 placeholder="bills"
                                 source="value"
                                 name="value"
                                 validate={required()}
+
                             />
                         </Grid>
                         <Grid item xs={2} style={{ marginTop: '23px' }}>
@@ -70,7 +88,7 @@ const BillForm = props => {
                                 validate={required()}
                             />
                         </Grid>
-                        <Grid item xs={2} style={{ marginTop: "30px" }}>
+                        <Grid item xs={3} style={{ marginTop: "30px" }}>
                             <EnumRadioInput
                                 resource="bills"
                                 source="typeBill"

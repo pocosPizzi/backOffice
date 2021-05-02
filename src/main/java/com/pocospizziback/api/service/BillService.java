@@ -8,8 +8,10 @@ import com.pocospizziback.api.domain.StatusBill;
 import com.pocospizziback.api.domain.TypeBill;
 import com.pocospizziback.api.dto.req.BillReqDTO;
 import com.pocospizziback.api.dto.req.ReportBillReqDTO;
+import com.pocospizziback.api.dto.res.BillByClientResDTO;
 import com.pocospizziback.api.dto.res.BillResDTO;
 import com.pocospizziback.api.model.Bill;
+import com.pocospizziback.api.model.Client;
 import com.pocospizziback.api.repository.BillRepository;
 import com.pocospizziback.api.util.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class BillService {
 
     @Autowired
     private BillRepository repository;
+
+    @Autowired
+    private ClientService clientService;
 
     public void logicalExclusion(Long id) {
 
@@ -84,6 +89,23 @@ public class BillService {
         this.repository.save(entity);
     }
 
+    public void updateStatusBillRes(Bill entity) {
+
+        LocalDate today = LocalDate.now();
+
+        if (entity.getIsPaid() && entity.getStatusBill() != StatusBill.PAID) {
+            entity.setStatusBill(StatusBill.PAID);
+        } else {
+
+            if (entity.getDueDate().isAfter(today)) {
+                StatusBill newStatus = entity.getTypeBill().equals(TypeBill.RECEIVE) ? StatusBill.RECEIVABLE : StatusBill.PAYABLE;
+                entity.setStatusBill(newStatus);
+            } else {
+                entity.setStatusBill(StatusBill.IN_LATE);
+            }
+        }
+    }
+
     public void updateStatusBillRes(BillReqDTO dto) {
 
         LocalDate today = LocalDate.now();
@@ -103,8 +125,23 @@ public class BillService {
 
     public BillResDTO save(BillReqDTO dto) {
 
-        this.updateStatusBillRes(dto);
-        return BillResDTO.of(this.repository.save(dto.toEntity(new Bill())));
+        Bill bill = dto.toEntity(new Bill());
+
+        this.updateStatusBillRes(bill);
+
+        verifyClient(dto.getIdClient(), bill);
+
+        return BillResDTO.of(this.repository.save(bill));
+    }
+
+    private Bill verifyClient(Long id, Bill bill) {
+
+        if (id != null) {
+            Client client = this.clientService.findById(id);
+            bill.setClient(client);
+        }
+
+        return bill;
     }
 
     public BillResDTO update(Long id, BillReqDTO dto) {
@@ -112,6 +149,8 @@ public class BillService {
         this.updateStatusBillRes(dto);
 
         Bill bill = dto.toEntity(this.findById(id));
+
+        verifyClient(dto.getIdClient(), bill);
 
         return BillResDTO.of(this.repository.save(bill));
     }
@@ -154,7 +193,7 @@ public class BillService {
         Double totalReceivable = listBill
                 .stream()
                 .filter(bill -> bill.getStatusBill().equals(StatusBill.RECEIVABLE)).map(Bill::getValue)
-                .collect(Collectors.summingDouble(Double::intValue));
+                .collect(Collectors.summingDouble(Double::doubleValue));
 
         Double totalPayable = listBill
                 .stream()
@@ -174,5 +213,26 @@ public class BillService {
                 .totalPayable(form.format(totalPayable))
                 .totalLiquid(form.format(totalLiquid))
                 .build();
+    }
+
+    public BillByClientResDTO findByClient(Long idClient) {
+
+        Client client = this.clientService.findById(idClient);
+
+        List<Bill> bills = this.repository.findByClientAndDeletedIsFalseOrderByDueDate(client);
+
+        List<BillResDTO> billResDTOS = bills.stream().map(BillResDTO::of).collect(Collectors.toList());
+
+        return BillByClientResDTO.of(client, billResDTOS);
+    }
+
+    public void updatePaid(Long id, Boolean paid) {
+
+        Bill bill = this.findById(id);
+
+        bill.setIsPaid(paid);
+
+        this.repository.save(bill);
+
     }
 }

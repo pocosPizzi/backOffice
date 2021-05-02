@@ -9,6 +9,7 @@ import {
   EditButton,
   FormWithRedirect,
   List,
+  NumberField,
   NumberInput,
   required,
   SaveButton,
@@ -20,6 +21,7 @@ import { ListFilterWithDeleteds } from '../components/ListFilter';
 import { EnumRadioField, EnumRadioInput } from '../components/Enums';
 import springProvider from '../providers/dataProvider';
 import FormActions from '../components/FormActions';
+import PriceInput from '../components/PriceInput';
 
 const useStyles = makeStyles(theme => ({
   row: {
@@ -31,9 +33,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const ProductList = props => {
+
   const classes = useStyles();
 
   return (
+
     <List
       filters={<ListFilterWithDeleteds />}
       bulkActionButtons={false}
@@ -45,6 +49,14 @@ export const ProductList = props => {
         <TextField source="barCode" />
         <TextField source="totalStock" />
         <EnumRadioField source="typeTotalStock" />
+        <NumberField
+          source="value"
+          textAlign="center"
+          options={{
+            style: 'currency',
+            currency: 'BRL',
+          }}
+        />
         <EditButton variant="outlined" color="primary" />
       </Datagrid>
     </List>
@@ -98,19 +110,27 @@ const ProductForm = props => {
                 source="name"
                 validate={required()}
               />
-              <TextInput
-                resource="products"
-                source="barCode"
-                validate={required()}
-              />
               <SelectInput
                 resource="products"
                 source="categoryId"
                 validate={required()}
                 choices={response}
               />
+              <PriceInput
+                resource="products"
+                placeholder="products"
+                source="value"
+                name="value"
+                validate={required()}
+              />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={3} >
+              <TextInput
+                resource="products"
+                source="barCode"
+                validate={required()}
+                style={{marginTop:'16px'}}
+              />
               <NumberInput
                 resource="products"
                 source="totalStock"

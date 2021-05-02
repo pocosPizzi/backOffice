@@ -31,7 +31,7 @@ public class BillResDTO {
 
     private LocalDateTime updatedAt;
 
-    private String debtor;
+    private Long idClient;
 
     private String beneficiary;
 
@@ -56,7 +56,7 @@ public class BillResDTO {
         this.dueDate = entity.getDueDate();
         this.typeBill = entity.getTypeBill();
         this.value = entity.getValue();
-        this.debtor = entity.getDebtor();
+        this.idClient = entity.getClient() != null ? entity.getClient().getId() : null;
         this.beneficiary = entity.getBeneficiary();
         this.statusBill = entity.getStatusBill();
         this.isPaid = entity.getIsPaid();

@@ -2,13 +2,13 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core';
 import {
   Datagrid,
-  DateField,
   EditButton,
   List,
   NumberField,
 } from 'react-admin';
 import { ListFilterWithDeleteds } from '../components/ListFilter';
 import { EnumRadioField } from '../components/Enums';
+import LocalDateField from '../components/LocalDateField';
 
 const useStyles = makeStyles(theme => ({
 
@@ -41,7 +41,7 @@ const BillList = props => {
               currency: 'BRL',
             }}
           />
-          <DateField source="dueDate" textAlign="center" />
+          <LocalDateField source="dueDate" textAlign="center" />
           <EnumRadioField resource="bills" source="typeBill" textAlign="center" />
           <EnumRadioField resource="bills" source="statusBill" textAlign="center" />
           <EditButton variant="outlined" color="primary" />

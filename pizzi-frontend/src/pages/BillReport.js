@@ -119,7 +119,7 @@ const BillReport = () => {
                         Relatório de contas por Perído
                     </Box>
                 </Typography>
-                <form style={{ display: 'flex', justifyContent: "center" }}>
+                <form style={{ display: 'flex', justifyContent: "center", marginTop: '25px' }}>
                     <TextField
                         id="date"
                         label="Perído Inicial"
@@ -154,7 +154,7 @@ const BillReport = () => {
                 </form>
                 {loading ?
                     <Loading /> :
-                    <div style={{ display: 'flex', justifyContent: 'center'}}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <div className={classes.headerBill}>
                             <Typography
                                 variant="h6"
@@ -174,12 +174,11 @@ const BillReport = () => {
                                 <div >
                                     <Typography
                                         align="left"
-                                        style={{color: 'black'}}
+                                        style={{ color: 'black' }}
                                     >
-                                        Total á receber
+                                        Total
                                     </Typography>
                                     <NumberFormat
-
                                         value={report.totalTypeBillReceive}
                                         decimalSeparator=","
                                         thousandSeparator="."
@@ -194,12 +193,11 @@ const BillReport = () => {
                                 <div>
                                     <Typography
                                         align="left"
-                                        style={{color: 'red'}}
+                                        style={{ color: 'red' }}
                                     >
-                                        Total em atraso á Receber
+                                        Em Atraso
                                     </Typography>
                                     <NumberFormat
-
                                         value={report.totalInLateTypeBillReceive}
                                         decimalSeparator=","
                                         thousandSeparator="."
@@ -207,19 +205,17 @@ const BillReport = () => {
                                         prefix={'R$ '}
                                         disabled={true}
                                     />
-
                                 </div>
                             </div>
                             <div className={classes.contentBill}>
                                 <div>
                                     <Typography
                                         align="left"
-                                        style={{color: 'blue'}}
+                                        style={{ color: 'blue' }}
                                     >
-                                        Total em dia á Receber
+                                        Á Receber
                                     </Typography>
                                     <NumberFormat
-
                                         value={report.totalReceivable}
                                         decimalSeparator=","
                                         thousandSeparator="."
@@ -234,9 +230,9 @@ const BillReport = () => {
                                 <div>
                                     <Typography
                                         align="left"
-                                        style={{color: 'green'}}
+                                        style={{ color: 'green' }}
                                     >
-                                        Total já recebido
+                                        Já Recebida
                                     </Typography>
                                     <NumberFormat
 
@@ -270,9 +266,9 @@ const BillReport = () => {
                                 <div>
                                     <Typography
                                         align="left"
-                                        style={{color: 'black'}}
+                                        style={{ color: 'black' }}
                                     >
-                                        Total á Pagar
+                                        Total
                                     </Typography>
                                     <NumberFormat
 
@@ -290,9 +286,9 @@ const BillReport = () => {
                                 <div>
                                     <Typography
                                         align="left"
-                                        style={{color: 'red'}}
+                                        style={{ color: 'red' }}
                                     >
-                                        Total em atraso á Pagar
+                                        Em Atraso
                                     </Typography>
                                     <NumberFormat
 
@@ -310,9 +306,9 @@ const BillReport = () => {
                                 <div>
                                     <Typography
                                         align="left"
-                                        style={{color: 'blue'}}
+                                        style={{ color: 'blue' }}
                                     >
-                                        Total em dia á Pagar
+                                       Á Pagar
                                     </Typography>
                                     <NumberFormat
 
@@ -330,9 +326,9 @@ const BillReport = () => {
                                 <div>
                                     <Typography
                                         align="left"
-                                        style={{color: 'green'}}
+                                        style={{ color: 'green' }}
                                     >
-                                        Total já Pago
+                                        Já Paga
                                     </Typography>
                                     <NumberFormat
 
@@ -366,7 +362,7 @@ const BillReport = () => {
 
                                 <Typography
                                     align="left"
-                                    style={{color: 'black'}}
+                                    style={{ color: 'black' }}
                                 >
                                     Líquidez do Período
                                 </Typography>

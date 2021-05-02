@@ -5,10 +5,12 @@ import com.pocospizziback.api.bases.PageRes;
 import com.pocospizziback.api.domain.TypeBill;
 import com.pocospizziback.api.dto.req.BillReqDTO;
 import com.pocospizziback.api.dto.req.ReportBillReqDTO;
+import com.pocospizziback.api.dto.res.BillByClientResDTO;
 import com.pocospizziback.api.dto.res.BillResDTO;
 import com.pocospizziback.api.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,6 +22,11 @@ public class BillController {
 
     @Autowired
     private BillService service;
+
+    @GetMapping("/by-client/{idClient}")
+    public BillByClientResDTO findByClient(@PathVariable("idClient") Long idClient){
+        return service.findByClient(idClient);
+    }
 
     @PostMapping
     public BillResDTO store(@Valid @RequestBody BillReqDTO dto) {
@@ -57,5 +64,11 @@ public class BillController {
 
         return this.service.findReportByPeriod(dateStart, dateFinal);
     }
+
+    @PutMapping("{id}/update/{paid}")
+    public void updatePaid(@PathVariable("id") Long id, @PathVariable("paid") Boolean paid){
+        this.service.updatePaid(id, paid);
+    }
+
 
 }

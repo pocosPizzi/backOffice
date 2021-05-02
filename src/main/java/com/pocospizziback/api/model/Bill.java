@@ -39,4 +39,7 @@ public class Bill extends BaseEntity implements Serializable {
     private Double value;
 
     private String description;
+
+    @ManyToOne
+    private Client client;
 }

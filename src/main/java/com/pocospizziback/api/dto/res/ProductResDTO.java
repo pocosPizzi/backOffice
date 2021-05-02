@@ -31,6 +31,8 @@ public class ProductResDTO {
 
     private String categoryName;
 
+    private Double value;
+
     private String barCode;
 
     public ProductResDTO(Product entity) {
@@ -46,6 +48,7 @@ public class ProductResDTO {
         this.typeTotalStock = entity.getTypeTotalStock();
         this.categoryId = entity.getCategory().getId();
         this.categoryName = entity.getCategory().getName();
+        this.value = entity.getValue();
         this.barCode = entity.getBarCode();
     }
 

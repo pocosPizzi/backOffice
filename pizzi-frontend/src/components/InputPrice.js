@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format';
 import TextField from '@material-ui/core/TextField';
+import {
+  required
+} from 'react-admin';
 
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
@@ -53,6 +56,9 @@ export default function FormattedInputsPrice({
         inputComponent: NumberFormatCustom,
       }}
       InputLabelProps={{ shrink: true }}
+      variant='filled'
+      required={required()}
+      style={{marginTop:'1px'}}
     />
   );
 }

@@ -1,20 +1,19 @@
 package com.pocospizziback.api.model;
 
 import com.pocospizziback.api.bases.BaseEntity;
-import com.pocospizziback.api.domain.TypeTotalStock;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "products")
+@Table(name = "assistance")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Product extends BaseEntity implements Serializable {
+public class Assistance extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,15 +23,7 @@ public class Product extends BaseEntity implements Serializable {
 
     private String name;
 
-    private Integer totalStock;
-
-    private TypeTotalStock typeTotalStock;
+    private String description;
 
     private Double value;
-
-    private String barCode;
-
-    @ManyToOne
-    private Category category;
-
 }

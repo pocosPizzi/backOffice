@@ -15,5 +15,7 @@ public enum Messages {
 	job_provided_not_found,
 	bill_not_found,
 	user_name_in_use,
+	client_not_found,
+	assistance_not_found
 
 }

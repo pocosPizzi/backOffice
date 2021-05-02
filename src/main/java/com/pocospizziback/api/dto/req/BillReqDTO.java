@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class BillReqDTO {
 
-    private String debtor;
+//    private String debtor;
 
     private String beneficiary;
 
@@ -32,15 +32,16 @@ public class BillReqDTO {
 
     private String description;
 
+    private Long idClient;
+
     public Bill toEntity(Bill entity) {
 
         entity.setTypeBill(this.typeBill);
         entity.setDueDate(this.dueDate);
         entity.setValue(this.value);
-        entity.setDebtor(this.debtor);
         entity.setBeneficiary(this.beneficiary);
         entity.setStatusBill(this.statusBill);
-        entity.setIsPaid(this.isPaid);
+        entity.setIsPaid(this.isPaid == null ? false: this.isPaid);
         entity.setDescription(this.description);
 
         return entity;

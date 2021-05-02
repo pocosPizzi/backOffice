@@ -25,6 +25,8 @@ public class ProductReqDTO {
 
     private String categoryName;
 
+    private Double value;
+
     @NotNull
     private String barCode;
 
@@ -34,6 +36,7 @@ public class ProductReqDTO {
         entity.setTotalStock(this.totalStock);
         entity.setTypeTotalStock(this.typeTotalStock);
         entity.setBarCode(this.barCode);
+        entity.setValue(this.value);
 
         return entity;
     }

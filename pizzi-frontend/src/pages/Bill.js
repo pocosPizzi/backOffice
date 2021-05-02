@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Grid, Typography, Toolbar } from '@material-ui/core';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import {
@@ -9,11 +9,14 @@ import {
   FormWithRedirect,
   required,
   SaveButton,
+  SelectInput,
   TextInput,
 } from 'react-admin';
 import PriceInput from '../components/PriceInput';
 import FormActions from '../components/FormActions';
+import { EnumRadioInput } from '../components/Enums';
 import BillTab from './BillTab';
+import springProvider from '../providers/dataProvider';
 
 export const BillList = props => {
 
@@ -25,6 +28,22 @@ export const BillList = props => {
 const BillFormEdit = props => {
 
   const typeBill = props.record.typeBill;
+
+  const [response, setRespose] = useState([
+    { id: '0', name: 'Carregando......' },
+  ]);
+
+  const getChoice = () => {
+    springProvider('GET', 'clients/choice').then(res => {
+      setRespose(res.data);
+    });
+  };
+
+  useEffect(() => {
+    getChoice();
+  }, []);
+
+  console.log(props.record.typeBill)
 
   return (
     <FormWithRedirect
@@ -49,16 +68,17 @@ const BillFormEdit = props => {
           <Grid container spacing={4} alignItems="center" justify="center">
             {typeBill === "RECEIVE" ?
               <Grid item xs={3} style={{ marginTop: '23px' }}>
-                <TextInput
+                <SelectInput
                   resource="bills"
-                  source="beneficiary"
+                  source="idClient"
                   validate={required()}
+                  choices={response}
                 />
               </Grid> :
               <Grid item xs={3} style={{ marginTop: '23px' }}>
                 <TextInput
                   resource="bills"
-                  source="debtor"
+                  source="beneficiary"
                   validate={required()}
                 />
               </Grid>
@@ -95,6 +115,15 @@ const BillFormEdit = props => {
                 source="description"
                 validate={required()}
                 multiline
+              />
+            </Grid>
+            <Grid item xs={3} style={{ marginTop: '23px' }}>
+              <EnumRadioInput
+                resource="bills"
+                source="typeBill"
+                validate={required()}
+                defaultValue={props.typeBill}
+                disabled={true}
               />
             </Grid>
           </Grid>

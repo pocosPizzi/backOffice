@@ -27,7 +27,7 @@ ptbrMessages.enums = {
     false: 'Não',
   },
 
-  typeBill: { PAY: 'Á Pagar', RECEIVE: 'Á receber' },
+  typeBill: { PAY: 'Despesa', RECEIVE: 'Receita' },
 
   typeBillPay: { PAY: 'Á Pagar'},
 
@@ -102,7 +102,7 @@ ptbrMessages.resources = {
     },
   },
 
-  products: {
+  'products': {
     empty: ptbrMessages.page.empty,
     invite: ptbrMessages.page.invite,
     name: 'Produto |||| Produtos',
@@ -117,6 +117,7 @@ ptbrMessages.resources = {
       totalStock: 'Total em estoque',
       typeTotalStock: 'Tipo de medida',
       categoryId: 'Categoria',
+      value: 'Valor'
     },
   },
 
@@ -194,7 +195,41 @@ ptbrMessages.resources = {
       description: 'Descrição',
       typeBillPay: 'Tipo de Conta',
       typeBillReceive: 'Tipo de Conta',
+      value: 'Valor',
+      idClient: 'Cliente'
+    },
+  },
+  'clients': {
+    empty: ptbrMessages.page.empty,
+    invite: ptbrMessages.page.invite,
+    name: 'Cliente |||| Clientes',
+    fields: {
+      updatedAt: 'Atualizado em',
+      updatedBy: 'Atualizado por',
+      nameClient: 'Nome',
+      birthday: 'Data de Nascimento',
+      city: 'Cidade',
+      cpf: 'CPF',
+      district: 'Bairro',
+      email: 'Email',
+      numberHouse: 'Número',
+      phone: 'Telefone',
+      rg: 'RG',
+      street: 'Rua',
+      uf: 'Estado'
+    },
+  },
+  'assistance': {
+    empty: ptbrMessages.page.empty,
+    invite: ptbrMessages.page.invite,
+    name: 'Assistência |||| Assistências',
+    fields: {
+      updatedAt: 'Atualizado em',
+      updatedBy: 'Atualizado por',
+      name: 'Nome',
+      description: 'Descrição',
       value: 'Valor'
+
     },
   },
 };
