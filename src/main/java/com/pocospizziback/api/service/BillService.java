@@ -232,6 +232,8 @@ public class BillService {
 
         bill.setIsPaid(paid);
 
+        this.updateStatusBillRes(bill);
+
         this.repository.save(bill);
 
     }

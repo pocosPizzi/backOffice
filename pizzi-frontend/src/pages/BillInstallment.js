@@ -5,7 +5,6 @@ import {
     Card,
     CardContent,
     Chip,
-    FormControl,
     FormControlLabel,
     FormGroup,
     makeStyles,
@@ -22,8 +21,6 @@ import {
     CircularProgress,
 } from '@material-ui/core';
 import {
-    CircularLoading,
-    LinearProgress,
     Loading,
 } from 'react-admin';
 import springProvider from '../providers/dataProvider';
@@ -62,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
     paper: {
         position: 'absolute',
-        width: 400,
+        width: 500,
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
@@ -122,10 +119,10 @@ const formatStatusBill = status => {
             return <Chip style={{ backgroundColor: '#E46460', color: '#000' }} label='Atrasada' />;
         case 'PAID':
 
-            return <Chip style={{ backgroundColor: '#FFFF42', color: '#000' }} label='Paga' />;
+            return <Chip style={{ backgroundColor: '#66CDAA', color: '#000' }} label='Paga' />;
         default:
 
-            return <Chip style={{ backgroundColor: '#66CDAA', color: '#000' }} label='Aguardando receber' />;
+            return <Chip style={{ backgroundColor: '#FFFF42', color: '#000' }} label='Aguardando receber' />;
     }
 }
 const BillInstallment = ({ clientCurrent, details }) => {
@@ -136,7 +133,6 @@ const BillInstallment = ({ clientCurrent, details }) => {
     const [bills, setBills] = useState([]);
     const [loading, setLoading] = useState(true);
     const [billCurrent, setBillCurrent] = useState();
-    const [edit, setEdit] = useState(false);
     const [open, setOpen] = useState(false);
     const [modalStyle] = useState(getModalStyle);
 
@@ -181,14 +177,16 @@ const BillInstallment = ({ clientCurrent, details }) => {
     }, []);
 
     const onChangeBill = (event) => {
+        console.log(event.target.value)
 
-        setBillCurrent({ ...billCurrent, 'isPaid': event.target.value });
+        setBillCurrent({ ...billCurrent, 'isPaid': event.target.checked });
 
         console.log(event.target)
         console.log(billCurrent)
     }
 
     const handleOpen = (bill) => {
+        console.log(bill)
         setBillCurrent(bill)
         setOpen(true);
     };
@@ -196,6 +194,8 @@ const BillInstallment = ({ clientCurrent, details }) => {
     const handleClose = () => {
         setOpen(false);
     }
+
+    console.log(billCurrent)
 
     return (
         bills !== undefined && <Card>
@@ -228,16 +228,13 @@ const BillInstallment = ({ clientCurrent, details }) => {
                         >
                             {billCurrent !== undefined ? <div style={modalStyle} className={classes.paper}>
                                 <h2 id="simple-modal-title" style={{ textAlign: 'center' }}>Atualizar status</h2>
-                                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                                    <FormControlLabel
-                                        value={billCurrent.isPaid}
-                                        checked={billCurrent.isPaid}
-                                        control={<Switch color="primary" />}
-                                        label="Pago"
-                                        // labelPlacement="start"
-                                        onChange={onChangeBill}
-                                        name='isPaid'
-                                    />
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <FormGroup row>
+                                        <FormControlLabel
+                                            control={<Switch color="primary" checked={billCurrent.isPaid} onChange={onChangeBill} name="isPaid" />}
+                                            label="Pago"
+                                        />
+                                    </FormGroup>
                                     <Button
                                         startIcon={loading ? <CircularProgress /> : <SaveIcon />}
                                         variant="contained" color="primary"
