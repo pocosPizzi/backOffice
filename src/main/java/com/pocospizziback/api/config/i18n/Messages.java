@@ -16,6 +16,15 @@ public enum Messages {
 	bill_not_found,
 	user_name_in_use,
 	client_not_found,
-	assistance_not_found
+	assistance_not_found,
+	job_not_found,
+	config_not_found,
+	value_down_up_total,
+	total_parcel_negative,
+	date_service_invalid,
+	date_start_parcel_invalid,
+	total_parcel_invalid,
+	perforated_meters_invalid,
+	mechanical_geo_coating_meters_invalid
 
 }

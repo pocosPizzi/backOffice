@@ -196,7 +196,8 @@ ptbrMessages.resources = {
       typeBillPay: 'Tipo de Conta',
       typeBillReceive: 'Tipo de Conta',
       value: 'Valor',
-      idClient: 'Cliente'
+      idClient: 'Cliente',
+      name: 'Nome'
     },
   },
   'clients': {
@@ -229,6 +230,67 @@ ptbrMessages.resources = {
       name: 'Nome',
       description: 'Descrição',
       value: 'Valor'
+
+    },
+  },
+  'config-system': {
+    empty: ptbrMessages.page.empty,
+    invite: ptbrMessages.page.invite,
+    name: 'Configuração |||| Configurações',
+    fields: {
+      updatedAt: 'Atualizado em',
+      updatedBy: 'Atualizado por',
+      valueMechanicalGeoCoatingMeters: 'Valor do Metro de Revestimento Geo Mecânico',
+      valuePerforatedMeters: 'Valor do Metro Perfurado'
+
+    },
+  },
+  'job-perforation': {
+    empty: ptbrMessages.page.empty,
+    invite: ptbrMessages.page.invite,
+    name: 'Perfuração |||| Perfurações',
+    fields: {
+      updatedAt: 'Atualizado em',
+      updatedBy: 'Atualizado por',
+      description: 'Descrição',
+      observation: 'Observação',
+      valueTotalJob: 'Valor total da Perfuração',
+      valueTotalProduct: 'Valor total dos Produtos',
+      valueTotalAssistance: 'Valor total das Assistências',
+      perforatedMeters: 'Metros Perfurados',
+      mechanicalGeoCoatingMeters: 'Metros de Revestimento Geo Mecânico',
+      dateJob: 'Data da Perfuração',
+      typeJob: 'Tipo de Serviço',
+      productTempList: 'Lista de Produtos',
+      assistanceResDTOS: 'Lista de Assistências',
+      clientResDTO: 'Cliente',
+      nameClient: 'Nome do Cliente'
+
+
+    },
+  },
+
+  'job-maintenance': {
+    empty: ptbrMessages.page.empty,
+    invite: ptbrMessages.page.invite,
+    name: 'Manutenção |||| Manutenções',
+    fields: {
+      updatedAt: 'Atualizado em',
+      updatedBy: 'Atualizado por',
+      description: 'Descrição',
+      observation: 'Observação',
+      valueTotalJob: 'Valor total da Perfuração',
+      valueTotalProduct: 'Valor total dos Produtos',
+      valueTotalAssistance: 'Valor total das Assistências',
+      perforatedMeters: 'Metros Perfurados',
+      mechanicalGeoCoatingMeters: 'Metros de Revestimento Geo Mecânico',
+      dateJob: 'Data da Perfuração',
+      typeJob: 'Tipo de Serviço',
+      productTempList: 'Lista de Produtos',
+      assistanceResDTOS: 'Lista de Assistências',
+      clientResDTO: 'Cliente',
+      nameClient: 'Nome do Cliente'
+
 
     },
   },

@@ -45,6 +45,8 @@ public class BillResDTO {
 
     private String description;
 
+    private String name;
+
     public BillResDTO(Bill entity) {
 
         this.id = entity.getId();
@@ -61,6 +63,7 @@ public class BillResDTO {
         this.statusBill = entity.getStatusBill();
         this.isPaid = entity.getIsPaid();
         this.description = entity.getDescription();
+        this.name = entity.getName();
     }
 
     public static BillResDTO of(Bill entity) {

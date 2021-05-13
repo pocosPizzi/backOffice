@@ -22,6 +22,19 @@ public class ProductUsedService {
     @Autowired
     private ProductService productService;
 
+    public List<ProductUsed> saveList(List<ProductUsedReqDTO> dtoList){
+
+        List<ProductUsed> productUsedList = new ArrayList<>();
+
+        if (dtoList != null && dtoList.isEmpty() == false) {
+            dtoList.forEach(productUsedReqDTO -> {
+                productUsedList.add(this.save(productUsedReqDTO));
+            });
+        }
+
+        return productUsedList;
+    }
+
     public ProductUsed save(ProductUsedReqDTO dto) {
 
         Product product = this.productService.findByIdEntity(dto.getProductId());
@@ -80,5 +93,16 @@ public class ProductUsedService {
         }
 
         return this.repository.save(entity);
+    }
+
+    public Double sumValueListProduct(List<ProductUsed> productList){
+
+        List<Double> sumTotal = new ArrayList<>();
+
+        productList.forEach(productUsed -> {
+            sumTotal.add(productUsed.getProduct().getValue()*productUsed.getTotalUsed());
+        });
+
+        return sumTotal.stream().mapToDouble(Double::doubleValue).sum();
     }
 }

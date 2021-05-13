@@ -20,11 +20,17 @@ public class ProductUsedResDTO {
 
     private Integer totalUsed;
 
+    private String name;
+
+    private Double value;
+
     public ProductUsedResDTO(ProductUsed entity) {
 
         this.id = entity.getId();
         this.productId = entity.getProduct().getId();
         this.totalUsed = entity.getTotalUsed();
+        this.name = entity.getProduct().getName();
+        this.value = entity.getProduct().getValue();
     }
 
     public static ProductUsedResDTO of(ProductUsed entity) {

@@ -9,6 +9,7 @@ import com.pocospizziback.api.dto.res.ProductChoiceResDTO;
 import com.pocospizziback.api.dto.res.ProductResDTO;
 import com.pocospizziback.api.model.Category;
 import com.pocospizziback.api.model.Product;
+import com.pocospizziback.api.model.ProductUsed;
 import com.pocospizziback.api.repository.ProductRepository;
 import com.pocospizziback.api.util.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,51 @@ public class ProductService {
             throw new ServiceException(Messages.product_name_empty);
 
         return ProductResDTO.of(this.repository.save(product));
+    }
+
+    public Double sumValueProduct(List<ProductUsed> productUsedList) {
+
+        Double total = 0D;
+
+        if (productUsedList != null && productUsedList.isEmpty() == false) {
+
+            List<Product> productList = productUsedList.stream().map(ProductUsed::getProduct).collect(Collectors.toList());
+
+            total = productList.stream().mapToDouble(Product::getValue).sum();
+        }
+
+        return total;
+    }
+
+    public void updateStory(List<ProductUsed> productUsedListOld) {
+
+        if(productUsedListOld != null && productUsedListOld.isEmpty() == false){
+            productUsedListOld.forEach(oldProduct -> {
+
+                Product product = oldProduct.getProduct();
+
+                Integer value = product.getTotalStock() + oldProduct.getTotalUsed();
+
+                this.updateStockProduct(value, product.getId());
+            });
+        }
+    }
+
+    public void updateStory(List<ProductUsed> productUsedListOld, List<ProductUsed> productUsedList) {
+        productUsedListOld.forEach(oldProduct -> {
+
+            List<ProductUsed> list = productUsedList.stream().filter(productUsed -> productUsed.getId().equals(oldProduct.getId())).collect(Collectors.toList());
+
+            if (list.isEmpty() == true) {
+
+                Product product = oldProduct.getProduct();
+
+                Integer value = product.getTotalStock() + oldProduct.getTotalUsed();
+
+                this.updateStockProduct(value, product.getId());
+
+            }
+        });
     }
 
     public ProductResDTO update(Long id, ProductReqDTO dto) {
@@ -84,7 +130,7 @@ public class ProductService {
         return this.findAll(PageReq.builder().build()).getContent().stream().map(ProductChoiceResDTO::of).collect(Collectors.toList());
     }
 
-    public void updateStockProduct(Integer value, Long productId){
+    public void updateStockProduct(Integer value, Long productId) {
 
         Product product = this.findByIdEntity(productId);
 

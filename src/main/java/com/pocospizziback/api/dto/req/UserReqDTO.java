@@ -16,15 +16,12 @@ public class UserReqDTO {
     @NotBlank
     private String name;
 
-    private Set<Role> roles;
-
     private String password;
 
     public User toEntity(User entity) {
 
         entity.setUsername(this.username);
         entity.setName(this.name);
-        entity.setRoles(this.roles);
 
         return entity;
     }

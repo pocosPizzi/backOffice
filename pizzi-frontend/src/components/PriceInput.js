@@ -16,6 +16,15 @@ function defineLabel(name) {
 
     case 'value':
       return 'Valor';
+    
+    case 'downPayment':
+      return 'Valor de Entrada'
+
+    case 'valueMechanicalGeoCoatingMeters':
+      return 'Valor do Metro de Revestimento Geo Mecânico';
+
+    case 'valuePerforatedMeters':
+      return 'Valor do Metro Perfurado';
 
     default:
       break;

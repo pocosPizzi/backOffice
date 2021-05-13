@@ -15,6 +15,7 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 
+import com.pocospizziback.api.domain.TypeJob;
 import org.springframework.data.jpa.domain.Specification;
 
 public class SearchUtils {
@@ -86,5 +87,9 @@ public class SearchUtils {
 
 	public static <T> Specification<T> specByDeleted(boolean deleted) {
 		return (root, query, builder) -> builder.equal(root.get("deleted"), deleted);
+	}
+
+	public static <T> Specification<T> specByTypeJob(TypeJob typeJob) {
+		return (root, query, builder) -> builder.equal(root.get("typeJob"), typeJob);
 	}
 }

@@ -12,6 +12,7 @@ import com.pocospizziback.api.dto.res.BillByClientResDTO;
 import com.pocospizziback.api.dto.res.BillResDTO;
 import com.pocospizziback.api.model.Bill;
 import com.pocospizziback.api.model.Client;
+import com.pocospizziback.api.model.ParcelPeriod;
 import com.pocospizziback.api.repository.BillRepository;
 import com.pocospizziback.api.util.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +43,15 @@ public class BillService {
         this.repository.softDelete(id);
     }
 
+    public void logicalExclusionList(List<Bill> billList) {
+
+        if (billList != null) {
+            billList.forEach(bill -> {
+                this.logicalExclusion(bill.getId());
+            });
+        }
+    }
+
     public BillResDTO findByIdDTO(Long id) {
 
         return BillResDTO.of(this.findById(id));
@@ -53,7 +64,7 @@ public class BillService {
     public PageRes<BillResDTO> findAll(PageReq query) {
 
         Specification<Bill> deleted = SearchUtils.specByDeleted(query.isDeleted());
-        Specification<Bill> filters = SearchUtils.specByFilter(query.getFilter(), "typeBill", "id", "dueDate", "value",
+        Specification<Bill> filters = SearchUtils.specByFilter(query.getFilter(), "name", "typeBill", "id", "dueDate", "value",
                 "debtor", "beneficiary", "statusBill");
         Page<Bill> page = this.repository.findAll(deleted.and(filters), query.toPageRequest());
 
@@ -63,7 +74,7 @@ public class BillService {
 
     public List<Bill> findAllBillNotIsPaid() {
 
-        return this.repository.findByIsPaidIsFalse();
+        return this.repository.findByIsPaidIsFalseAndDeletedIsFalse();
     }
 
     public void updateAllStatusBill() {
@@ -110,7 +121,7 @@ public class BillService {
 
         LocalDate today = LocalDate.now();
 
-        if (dto.getIsPaid() && dto.getStatusBill() != StatusBill.PAID) {
+        if (dto.getIsPaid()) {
             dto.setStatusBill(StatusBill.PAID);
         } else {
 
@@ -139,6 +150,10 @@ public class BillService {
         if (id != null) {
             Client client = this.clientService.findById(id);
             bill.setClient(client);
+            bill.setDebtor(client.getNameClient());
+            bill.setName(client.getNameClient());
+        } else {
+            bill.setName(bill.getBeneficiary());
         }
 
         return bill;
@@ -235,6 +250,84 @@ public class BillService {
         this.updateStatusBillRes(bill);
 
         this.repository.save(bill);
+
+    }
+
+    public Double calcValueParcel(Integer totalParcel, Double valueTotalJob, Double downPayment) {
+
+        return (valueTotalJob - downPayment) / totalParcel;
+    }
+
+    public List<Bill> createBillsByJob(Client client, LocalDate dateStartParcel, Integer totalParcel, Double valueTotalJob, Double downPayment, ParcelPeriod parcelPeriod) {
+
+        List<Bill> billList = new ArrayList<>();
+        Double valueEachParcel = this.calcValueParcel(totalParcel, valueTotalJob, downPayment);
+
+        if(downPayment.equals(0D) == false){
+
+            Bill newBill = Bill.builder()
+                    .client(client)
+                    .description("Valor de entrada")
+                    .dueDate(LocalDate.now())
+                    .isPaid(true)
+                    .name(client.getNameClient())
+                    .value(downPayment)
+                    .typeBill(TypeBill.RECEIVE)
+                    .statusBill(StatusBill.PAID)
+                    .build();
+
+            this.repository.save(newBill);
+
+
+            billList.add(newBill);
+        }
+
+        LocalDate dueDate = dateStartParcel;
+
+        for (int i = 0; i < totalParcel; i++) {
+
+            String parcelCurrent = String.valueOf(i + 1);
+            String description = "Parcela "+parcelCurrent+"/"+totalParcel;
+
+            if (i != 0)
+                dueDate = this.newDueDate(dueDate, parcelPeriod);
+
+            Bill newBill = Bill.builder()
+                    .client(client)
+                    .description(description)
+                    .dueDate(dueDate)
+                    .isPaid(false)
+                    .name(client.getNameClient())
+                    .value(valueEachParcel)
+                    .typeBill(TypeBill.RECEIVE)
+                    .build();
+
+            this.repository.save(newBill);
+
+            this.updateStatusBill(newBill);
+
+            billList.add(newBill);
+        }
+
+        return billList;
+    }
+
+    public LocalDate newDueDate(LocalDate dueDate, ParcelPeriod parcelPeriod){
+
+        LocalDate newDate = LocalDate.now();
+
+        switch (parcelPeriod.getDescription()) {
+            case (1):
+                newDate = dueDate.plusWeeks(1);
+                break;
+            case (2):
+                newDate = dueDate.plusDays(15);
+                break;
+            default:
+                newDate = dueDate.plusMonths(1);
+                break;
+        }
+        return newDate;
 
     }
 }

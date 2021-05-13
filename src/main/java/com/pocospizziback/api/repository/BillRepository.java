@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BillRepository extends BaseRepository<Bill, Long> {
 
-    List<Bill> findByIsPaidIsFalse();
+    List<Bill> findByIsPaidIsFalseAndDeletedIsFalse();
 
     List<Bill> findByDeletedIsFalseAndDueDateBetween(LocalDate dateInit, LocalDate dateFinal);
 

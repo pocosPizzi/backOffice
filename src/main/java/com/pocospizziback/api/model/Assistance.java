@@ -26,4 +26,7 @@ public class Assistance extends BaseEntity implements Serializable {
     private String description;
 
     private Double value;
+
+    @ManyToOne
+    private Job job;
 }

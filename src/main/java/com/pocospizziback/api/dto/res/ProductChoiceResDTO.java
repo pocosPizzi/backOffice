@@ -1,6 +1,5 @@
 package com.pocospizziback.api.dto.res;
 
-import com.pocospizziback.api.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +13,12 @@ public class ProductChoiceResDTO {
 
     private String name;
 
+    private Double value;
+
     public ProductChoiceResDTO(ProductResDTO entity) {
         this.id = entity.getId();
         this.name = entity.getName();
+        this.value = entity.getValue();
     }
 
     public static ProductChoiceResDTO of(ProductResDTO entity) {

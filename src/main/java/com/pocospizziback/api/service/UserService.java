@@ -5,6 +5,7 @@ import com.pocospizziback.api.bases.PageRes;
 import com.pocospizziback.api.config.i18n.Messages;
 import com.pocospizziback.api.config.i18n.ServiceException;
 import com.pocospizziback.api.config.security.AuthUtil;
+import com.pocospizziback.api.domain.Role;
 import com.pocospizziback.api.dto.req.UserReqDTO;
 import com.pocospizziback.api.dto.res.UserResDTO;
 import com.pocospizziback.api.model.User;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -46,8 +49,11 @@ public class UserService {
             throw new ServiceException(Messages.user_name_in_use);
         }
 
-        User user = dto.toEntity(new User());
+        Set<Role> roles = new HashSet<>();
 
+        roles.add(Role.ADMIN);
+        User user = dto.toEntity(new User());
+        user.setRoles(roles);
         user.setPassword(this.passwordService.encode(dto.getPassword()));
 
         return UserResDTO.of(this.repository.save(user));

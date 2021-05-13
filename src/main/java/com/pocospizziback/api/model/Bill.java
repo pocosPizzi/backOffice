@@ -26,6 +26,8 @@ public class Bill extends BaseEntity implements Serializable {
 
     private String debtor;
 
+    private String name;
+
     private Boolean isPaid;
 
     private String beneficiary;
@@ -42,4 +44,7 @@ public class Bill extends BaseEntity implements Serializable {
 
     @ManyToOne
     private Client client;
+
+    @ManyToOne
+    private Job job;
 }

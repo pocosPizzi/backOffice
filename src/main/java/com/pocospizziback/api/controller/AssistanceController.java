@@ -3,10 +3,7 @@ package com.pocospizziback.api.controller;
 import com.pocospizziback.api.bases.PageReq;
 import com.pocospizziback.api.bases.PageRes;
 import com.pocospizziback.api.dto.req.AssistanceReqDTO;
-import com.pocospizziback.api.dto.req.CategoryReqDTO;
-import com.pocospizziback.api.dto.res.AssistanceResDTO;
-import com.pocospizziback.api.dto.res.CategoryChoiceResDTO;
-import com.pocospizziback.api.dto.res.CategoryResDTO;
+import com.pocospizziback.api.dto.res.*;
 import com.pocospizziback.api.service.AssistanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +34,12 @@ public class AssistanceController {
     public AssistanceResDTO show(@PathVariable("id") Long id) {
 
         return this.service.findByIdDTO(id);
+    }
+
+    @GetMapping("/choice")
+    public List<AssistanceChoiceResDTO> choiceProduct(){
+
+        return this.service.findAllChoice();
     }
 
     @PutMapping("/{id}")

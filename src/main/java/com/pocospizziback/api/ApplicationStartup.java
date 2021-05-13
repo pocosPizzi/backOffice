@@ -1,9 +1,11 @@
 package com.pocospizziback.api;
 
 import com.pocospizziback.api.domain.Role;
+import com.pocospizziback.api.model.ConfigSystem;
 import com.pocospizziback.api.model.User;
 import com.pocospizziback.api.repository.UserRepository;
 import com.pocospizziback.api.service.BillService;
+import com.pocospizziback.api.service.ConfigSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -25,6 +27,9 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     @Autowired
     private BillService billService;
 
+    @Autowired
+    private ConfigSystemService configSystemService;
+
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
         this.initApplication();
@@ -40,5 +45,13 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         }
 
         this.billService.updateAllStatusBill();
+
+        this.initConfigSystem();
+    }
+
+    private void initConfigSystem(){
+        if(this.configSystemService.verifyBaseIsEmpty())
+            this.configSystemService.save(ConfigSystem.builder().valueMechanicalGeoCoatingMeters(10D).valuePerforatedMeters(10D).build());
+
     }
 }
