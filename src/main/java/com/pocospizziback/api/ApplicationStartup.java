@@ -51,7 +51,14 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
     private void initConfigSystem(){
         if(this.configSystemService.verifyBaseIsEmpty())
-            this.configSystemService.save(ConfigSystem.builder().valueMechanicalGeoCoatingMeters(10D).valuePerforatedMeters(10D).build());
+            this.configSystemService.save(ConfigSystem.builder()
+                    .valueMechanicalGeoCoatingMeters(10D)
+                    .value0To100PerforatedMeters(10D)
+                    .value100To150PerforatedMeters(20D)
+                    .value150To200PerforatedMeters(30D)
+                    .value200To250PerforatedMeters(40D)
+                    .value250To300PerforatedMeters(50D)
+                    .build());
 
     }
 }

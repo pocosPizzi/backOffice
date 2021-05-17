@@ -58,6 +58,8 @@ public class Job extends BaseEntity implements Serializable {
 
     private Boolean complete;
 
+    private Double valueMeterPerforation;
+
     @ManyToOne
     private Client client;
 

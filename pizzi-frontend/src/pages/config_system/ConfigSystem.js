@@ -48,13 +48,49 @@ export const ConfigSystemList = props => {
             }}
           />
         <NumberField
-        resource="config-system"
-        source="valuePerforatedMeters"
-        textAlign="left"
-        options={{
+          resource="config-system"
+          source="value0To100PerforatedMeters"
+          textAlign="left"
+          options={{
             style: 'currency',
             currency: 'BRL',
-        }}
+          }}
+        />
+        <NumberField
+          resource="config-system"
+          source="value100To150PerforatedMeters"
+          textAlign="left"
+          options={{
+            style: 'currency',
+            currency: 'BRL',
+          }}
+        />
+        <NumberField
+          resource="config-system"
+          source="value150To200PerforatedMeters"
+          textAlign="left"
+          options={{
+              style: 'currency',
+              currency: 'BRL',
+          }}
+        />
+        <NumberField
+          resource="config-system"
+          source="value200To250PerforatedMeters"
+          textAlign="left"
+          options={{
+              style: 'currency',
+              currency: 'BRL',
+          }}
+        />
+        <NumberField
+          resource="config-system"
+          source="value250To300PerforatedMeters"
+          textAlign="left"
+          options={{
+              style: 'currency',
+              currency: 'BRL',
+          }}
         />
         <EditButton variant="outlined" color="primary" />
       </Datagrid>
@@ -96,9 +132,41 @@ const ConfigSystemForm = props => {
             
                 <PriceInput
                     resource="config-system"
-                    source="valuePerforatedMeters"
+                    source="value0To100PerforatedMeters"
                     placeholder="config-system"
-                    name="valuePerforatedMeters"
+                    name="value0To100PerforatedMeters"
+                    validate={required()}
+
+                />
+                <PriceInput
+                    resource="config-system"
+                    source="value100To150PerforatedMeters"
+                    placeholder="config-system"
+                    name="value100To150PerforatedMeters"
+                    validate={required()}
+
+                />
+                <PriceInput
+                    resource="config-system"
+                    source="value150To200PerforatedMeters"
+                    placeholder="config-system"
+                    name="value150To200PerforatedMeters"
+                    validate={required()}
+
+                />
+                <PriceInput
+                    resource="config-system"
+                    source="value200To250PerforatedMeters"
+                    placeholder="config-system"
+                    name="value200To250PerforatedMeters"
+                    validate={required()}
+
+                />
+                <PriceInput
+                    resource="config-system"
+                    source="value250To300PerforatedMeters"
+                    placeholder="config-system"
+                    name="value250To300PerforatedMeters"
                     validate={required()}
 
                 />

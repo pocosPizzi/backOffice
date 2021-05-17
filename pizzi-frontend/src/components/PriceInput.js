@@ -23,9 +23,21 @@ function defineLabel(name) {
     case 'valueMechanicalGeoCoatingMeters':
       return 'Valor do Metro de Revestimento Geo Mecânico';
 
-    case 'valuePerforatedMeters':
-      return 'Valor do Metro Perfurado';
+    case 'value0To100PerforatedMeters':
+      return 'Valor Mt Perfurado 0 á 100';
+    
+    case 'value100To150PerforatedMeters':
+      return 'Valor Mt Perfurado 100 á 150';
 
+    case 'value150To200PerforatedMeters':
+      return 'Valor Mt Perfurado 150 á 200';
+
+    case 'value200To250PerforatedMeters':
+      return 'Valor Mt Perfurado 200 á 250';
+
+    case 'value250To300PerforatedMeters':
+      return 'Valor Mt Perfurado 250 á 300';
+    
     default:
       break;
   }

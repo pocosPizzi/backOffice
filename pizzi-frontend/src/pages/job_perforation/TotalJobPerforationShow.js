@@ -96,6 +96,13 @@ const TotalJobPerforationShow = (props) => {
                     />
                     <PriceInputMaterial
                         disabled={true}
+                        value={perforation.valueMeterPerforation}
+                        label='Valor Unitário do Metro Perfurado'
+                        variant='outlined'
+                        className={classes.textField}
+                    />
+                    <PriceInputMaterial
+                        disabled={true}
                         value={perforation.valueTotalPerforatedMeters}
                         label='Valor dos Metros Perfurados'
                         variant='outlined'

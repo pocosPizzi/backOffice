@@ -241,7 +241,11 @@ ptbrMessages.resources = {
       updatedAt: 'Atualizado em',
       updatedBy: 'Atualizado por',
       valueMechanicalGeoCoatingMeters: 'Valor do Metro de Revestimento Geo Mecânico',
-      valuePerforatedMeters: 'Valor do Metro Perfurado'
+      value0To100PerforatedMeters: 'Valor Mt Perfurado 0 á 100',
+      value100To150PerforatedMeters: 'Valor Mt Perfurado 100 á 150',
+      value150To200PerforatedMeters: 'Valor Mt Perfurado 150 á 200',
+      value200To250PerforatedMeters: 'Valor Mt Perfurado 200 á 250',
+      value250To300PerforatedMeters: 'Valor Mt Perfurado 250 á 300'
 
     },
   },

@@ -70,6 +70,8 @@ public class JobResDTO {
 
     private Double downPayment;
 
+    private Double valueMeterPerforation;
+
     public JobResDTO(Job entity) {
 
         this.id = entity.getId();
@@ -97,6 +99,7 @@ public class JobResDTO {
         this.dateStartParcel = entity.getDateStartParcel();
         this.totalParcel = entity.getTotalParcel();
         this.downPayment = FormatDouble2.format(entity.getDownPayment());
+        this.valueMeterPerforation = entity.getValueMeterPerforation();
 
     }
 

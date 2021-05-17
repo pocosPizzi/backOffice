@@ -109,7 +109,6 @@ public class JobService {
     @Transactional
     public JobResDTO saveGeneralInJob(Long idJob, JobReqDTO dto){
         Job job = this.findByIdEntity(idJob);
-        ConfigSystem configSystem = this.configSystemService.findById(1l);
 
         if(dto.getDateJob().isAfter(LocalDate.now())){
             throw new ServiceException(Messages.date_service_invalid);
@@ -125,12 +124,13 @@ public class JobService {
 
         job.setPerforatedMeters(dto.getPerforatedMeters());
         job.setMechanicalGeoCoatingMeters(dto.getMechanicalGeoCoatingMeters());
-        job.setValueTotalPerforatedMeters(configSystem.getValuePerforatedMeters()*dto.getPerforatedMeters());
-        job.setValueTotalMechanicalGeoCoatingMeters(configSystem.getValueMechanicalGeoCoatingMeters()*dto.getMechanicalGeoCoatingMeters());
+        job.setValueTotalPerforatedMeters(this.configSystemService.calcTotalValueMetersPerforation(dto.getPerforatedMeters()));
+        job.setValueTotalMechanicalGeoCoatingMeters(this.configSystemService.calcTotalValueMechanicalGeoCoatingMeters(dto.getMechanicalGeoCoatingMeters()));
         job.setValueTotalJob(job.getValueTotalJob()+job.getValueTotalMechanicalGeoCoatingMeters()+job.getValueTotalPerforatedMeters());
         job.setDateJob(dto.getDateJob());
         job.setDescription(dto.getDescription());
         job.setObservation(dto.getObservation());
+        job.setValueMeterPerforation(this.configSystemService.valueMeterPerforation(dto.getPerforatedMeters()));
 
         return JobResDTO.of(this.repository.save(job));
     }
@@ -232,6 +232,8 @@ public class JobService {
 
     @Transactional
     public PageRes<JobResDTO> findAll(PageReq query, TypeJob typeJob) {
+
+        this.deletedJobsIncomplete();
 
         Specification<Job> deleted = SearchUtils.specByDeleted(query.isDeleted());
         Specification<Job> specTypeJob = SearchUtils.specByTypeJob(typeJob);

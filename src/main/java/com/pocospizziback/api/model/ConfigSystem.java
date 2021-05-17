@@ -21,7 +21,15 @@ public class ConfigSystem extends BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double valuePerforatedMeters;
+    private Double value0To100PerforatedMeters;
+
+    private Double value100To150PerforatedMeters;
+
+    private Double value150To200PerforatedMeters;
+
+    private Double value200To250PerforatedMeters;
+
+    private Double value250To300PerforatedMeters;
 
     private Double valueMechanicalGeoCoatingMeters;
 

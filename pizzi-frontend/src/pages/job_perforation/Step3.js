@@ -123,6 +123,7 @@ export const Step3 = ({handleChangeStep3, jobPerforation}) => {
                         value={productChoiceCurrent.totalUsed}
                         onChange={handleChangeProduct}
                         name='totalUsed'
+                        type='number'
                     />
                 </Grid>
                 <Grid item xs={3} >

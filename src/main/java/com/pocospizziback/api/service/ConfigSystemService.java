@@ -31,7 +31,11 @@ public class ConfigSystemService {
         ConfigSystem oldConfigSystem = this.findById(id);
 
         oldConfigSystem.setValueMechanicalGeoCoatingMeters(configSystem.getValueMechanicalGeoCoatingMeters());
-        oldConfigSystem.setValuePerforatedMeters(configSystem.getValuePerforatedMeters());
+        oldConfigSystem.setValue0To100PerforatedMeters(configSystem.getValue0To100PerforatedMeters());
+        oldConfigSystem.setValue100To150PerforatedMeters(configSystem.getValue100To150PerforatedMeters());
+        oldConfigSystem.setValue150To200PerforatedMeters(configSystem.getValue150To200PerforatedMeters());
+        oldConfigSystem.setValue200To250PerforatedMeters(configSystem.getValue200To250PerforatedMeters());
+        oldConfigSystem.setValue250To300PerforatedMeters(configSystem.getValue250To300PerforatedMeters());
 
         return this.save(configSystem);
     }
@@ -48,5 +52,73 @@ public class ConfigSystemService {
 
     public Boolean verifyBaseIsEmpty(){
         return this.repository.findAll().isEmpty() ? true : false;
+    }
+
+    public Double calcTotalValueMechanicalGeoCoatingMeters(Integer meters){
+        ConfigSystem config = this.findById(1L);
+
+        return config.getValueMechanicalGeoCoatingMeters()*meters;
+    }
+
+    public Double calcTotalValueMetersPerforation(Integer meters){
+
+        ConfigSystem config = this.findById(1L);
+
+        Double result = 0D;
+
+        if(meters <= 100){
+
+            result = config.getValue0To100PerforatedMeters() * meters;
+
+        }else if(meters > 100 && meters <= 150 ){
+
+            result = config.getValue100To150PerforatedMeters() * meters;
+
+        } else if(meters > 150 && meters <= 200){
+
+            result = config.getValue150To200PerforatedMeters() * meters;
+
+        } else if(meters > 200 && meters <= 250){
+
+            result = config.getValue200To250PerforatedMeters() * meters;
+
+        } else if(meters > 250){
+
+            result = config.getValue250To300PerforatedMeters() * meters;
+
+        }
+
+        return result;
+    }
+
+    public Double valueMeterPerforation(Integer meters){
+
+        ConfigSystem config = this.findById(1L);
+
+        Double result = 0D;
+
+        if(meters <= 100){
+
+            result = config.getValue0To100PerforatedMeters();
+
+        }else if(meters > 100 && meters <= 150 ){
+
+            result = config.getValue100To150PerforatedMeters();
+
+        } else if(meters > 150 && meters <= 200){
+
+            result = config.getValue150To200PerforatedMeters();
+
+        } else if(meters > 200 && meters <= 250){
+
+            result = config.getValue200To250PerforatedMeters();
+
+        } else if(meters > 250){
+
+            result = config.getValue250To300PerforatedMeters();
+
+        }
+
+        return result;
     }
 }
