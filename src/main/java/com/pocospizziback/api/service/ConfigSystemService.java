@@ -101,7 +101,7 @@ public class ConfigSystemService {
 
             result = config.getValue0To100PerforatedMeters();
 
-        }else if(meters > 100 && meters <= 150 ){
+        } else if(meters > 100 && meters <= 150 ){
 
             result = config.getValue100To150PerforatedMeters();
 

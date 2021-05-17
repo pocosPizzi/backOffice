@@ -21,7 +21,7 @@ function defineLabel(name) {
       return 'Valor de Entrada'
 
     case 'valueMechanicalGeoCoatingMeters':
-      return 'Valor do Metro de Revestimento Geo Mecânico';
+      return 'Valor Mt de Revestimento Geo Mecânico';
 
     case 'value0To100PerforatedMeters':
       return 'Valor Mt Perfurado 0 á 100';
