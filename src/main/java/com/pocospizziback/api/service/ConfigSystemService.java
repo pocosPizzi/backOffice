@@ -63,32 +63,47 @@ public class ConfigSystemService {
     public Double calcTotalValueMetersPerforation(Integer meters){
 
         ConfigSystem config = this.findById(1L);
-
         Double result = 0D;
+        Integer indices = 0;
+        Integer meter0To100= 100;
 
-        if(meters <= 100){
+        while (meters > 0 || indices == 5) {
+            switch (indices) {
+                case 0:
+                    result = meters < 100 ? config.getValue0To100PerforatedMeters() * meters : config.getValue0To100PerforatedMeters() * meter0To100;
+                    meters = meters-100;
+                    break;
+                case 1:
+                    result = result + this.calcMeter(meters, config.getValue100To150PerforatedMeters());
+                    meters = meters-50;
+                    break;
+                case 2:
+                    result = result + this.calcMeter(meters, config.getValue150To200PerforatedMeters());
+                    meters = meters-50;
+                    break;
+                case 3:
+                    result = result + this.calcMeter(meters, config.getValue200To250PerforatedMeters());
+                    meters = meters-50;
+                    break;
+                case 4:
+                    result = result + config.getValue250To300PerforatedMeters() * meters;
+                    meters = 0;
+                    break;
+                default:
+                    break;
+            }
 
-            result = config.getValue0To100PerforatedMeters() * meters;
-
-        }else if(meters > 100 && meters <= 150 ){
-
-            result = config.getValue100To150PerforatedMeters() * meters;
-
-        } else if(meters > 150 && meters <= 200){
-
-            result = config.getValue150To200PerforatedMeters() * meters;
-
-        } else if(meters > 200 && meters <= 250){
-
-            result = config.getValue200To250PerforatedMeters() * meters;
-
-        } else if(meters > 250){
-
-            result = config.getValue250To300PerforatedMeters() * meters;
-
+            indices++;
         }
 
         return result;
+    }
+
+    private Double calcMeter(Integer meters, Double value){
+
+        Integer meterUp50= 50;
+
+        return meters < 50 ? value * meters : value * meterUp50;
     }
 
     public Double valueMeterPerforation(Integer meters){
